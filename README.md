@@ -60,7 +60,7 @@ client_id = 'your client ID'
 
 client_secret = 'your client secret'
 
-## **3. sentinel Hub API**
+### **2.2 sentinel Hub API**
 this database provides us with raw satellite imagery from the European Space Agency's (ESA) Copernicus program.
 
 **API Key**  
@@ -75,3 +75,15 @@ config.sh_client_secret = 'your client secret'
 config.sh_client_id =  'your client ID>
 
 to get client ID and secret follow the steps in this [link](https://docs.sentinel-hub.com/api/latest/api/overview/authentication/)
+
+
+
+# Dependencies
+- sentinelhub
+- oauthlib
+- requests_oauthlib
+
+Install them with:
+
+```bash
+pip install requests sentinelhub PIL
