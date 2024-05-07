@@ -62,7 +62,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1715064355066</updated>
-      <workItem from="1715064446783" duration="9283000" />
+      <workItem from="1715064446783" duration="10257000" />
     </task>
     <task id="LOCAL-00001" summary="INNIT">
       <option name="closed" value="true" />
@@ -96,7 +96,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715073580789</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="instructions on how to get API keys">
+      <option name="closed" value="true" />
+      <created>1715074802926</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1715074802926</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

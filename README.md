@@ -89,3 +89,14 @@ Install them with:
 
 ```bash
 pip install requests sentinelhub PIL
+
+
+
+
+
+# To Do:
+1. wether data
+2. fire data
+3. covrage data
+    - village
+    - street
