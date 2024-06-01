@@ -8,19 +8,19 @@ we use the following data sources via their APIs
 
 this database provides us with active fire data from the Moderate Resolution Imaging Spectroradiometer (MODIS) aboard the Aqua and Terra satellites, and the Visible Infrared Imaging Radiometer Suite (VIIRS) aboard S-NPP, NOAA 20 and NOAA 21 (formally known as JPSS-1 and JPSS-2).
 
-**Documentation:**  
+**Documentation:**
 https://firms.modaps.eosdis.nasa.gov/api/country/
 
-**API Key**  
+**API Key**
 request an API key at https://firms.modaps.eosdis.nasa.gov/api/map_key/
 
-**Host:**  
+**Host:**
 https://firms.modaps.eosdis.nasa.gov
 
-**Endpoint:**  
+**Endpoint:**
 /api/country/html/&lt;mapkey&gt;/&lt;source&gt;/&lt;country&gt;/&lt;dayrange&gt;/&lt;date&gt;
 
-**Example endpoint:**  
+**Example endpoint:**
 https://firms.modaps.eosdis.nasa.gov/api/country/html/da61586d1810fd9751c0c93033dee077/VIIRS_SNPP_NRT/ITA/10/2023-07-06
 
 **Example CSV output:**
@@ -65,7 +65,7 @@ client_secret = 'your client secret'
 ### **2.2 sentinel Hub API**
 this database provides us with raw satellite imagery from the European Space Agency's (ESA) Copernicus program.
 
-**API Key**  
+**API Key**
 to use this API you need to create an account on sentinelHUB and get API keys.
 follow the steps in this [link](https://www.sentinel-hub.com/faq/where-get-instance-id/) to get instance ID.
 you need to enter your instance ID, Client ID, and Client Secret in the forth cell of the notebook.
@@ -78,7 +78,14 @@ config.sh_client_id =  'your client ID>
 
 to get client ID and secret follow the steps in this [link](https://docs.sentinel-hub.com/api/latest/api/overview/authentication/)
 
+### **Firenews API**
+Endpoint: https://api2.effis.emergency.copernicus.eu/firenews/rest/firenews/firenews
 
+Example URL
+https://api2.effis.emergency.copernicus.eu/firenews/rest/firenews/firenews?notify=1&place__icontains=fontana&startdate__gte=2024-05-13T00:00:00.000Z&enddate__lte=2024-05-28T23:59:59.999Z&simpleplace__icontains=IT&ordering=-enddate,-startdate&limit=20&offset=0
+
+### **Weather data**
+https://open-meteo.com/en/docs/historical-weather-api
 
 # Dependencies
 - sentinelhub
@@ -94,10 +101,3 @@ pip install requests sentinelhub PIL
 
 
 
-# To Do:
-1. wether data
-2. fire data
-3. covrage data
-    - village
-    - street
-4. what make fire happen?
