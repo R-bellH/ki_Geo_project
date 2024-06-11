@@ -4,20 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="44b15f9d-759f-49b0-9a71-48ca12d893a5" name="Changes" comment="firenews.ipynb by Dong added (Dong have problem with github accses)">
-      <change afterPath="$PROJECT_DIR$/pic" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/ki_Geo.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ki_Geo.iml" afterDir="false" />
+    <list default="true" id="44b15f9d-759f-49b0-9a71-48ca12d893a5" name="Changes" comment="some orgnization">
+      <change afterPath="$PROJECT_DIR$/data_mining/get_sat2_images.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_mining/main.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_mining/read_firenews.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data_mining/read_weather.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mosiac_Fire.tiff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/NDVI.tiff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/NRT_Fire.tiff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/NRT_NDVI.tiff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Post_NDVI.tiff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/main.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/viirsdata.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/weather.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/weather.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wildfire.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/wildfire.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_mining/firenews.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/data_mining/firenews.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_mining/utils.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_mining/weather.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/data_mining/weather.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/read_csv.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,26 +56,86 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/just let me in/Desktop/technion/semester_8_student_exchange/CLM KI&amp;Geoinfo/ki_Geo_project&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Python.get_sat2_images.executor": "Run",
+    "Python.read_firenews.executor": "Run",
+    "Python.read_weather.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/just let me in/Desktop/technion/semester_8_student_exchange/CLM KI&Geoinfo/ki_Geo_project",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\just let me in\Desktop\technion\semester_8_student_exchange\CLM KI&amp;Geoinfo\ki_Geo_project" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\just let me in\Desktop\technion\semester_8_student_exchange\CLM KI&amp;Geoinfo\ki_Geo_project\data_mining" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.read_weather">
+    <configuration name="read_firenews" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="ki_Geo" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/data_mining" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/data_mining/read_firenews.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="read_weather" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="ki_Geo" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/data_mining" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/data_mining/read_weather.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.read_weather" />
+        <item itemvalue="Python.read_firenews" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -98,7 +155,7 @@
       <updated>1715064355066</updated>
       <workItem from="1715064446783" duration="10257000" />
       <workItem from="1717499358246" duration="12112000" />
-      <workItem from="1718030190024" duration="15268000" />
+      <workItem from="1718030190024" duration="24611000" />
     </task>
     <task id="LOCAL-00001" summary="INNIT">
       <option name="closed" value="true" />
@@ -156,7 +213,23 @@
       <option name="project" value="LOCAL" />
       <updated>1717505449492</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="sentinal new credinal and use of curl">
+      <option name="closed" value="true" />
+      <created>1718107424135</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1718107424136</updated>
+    </task>
+    <task id="LOCAL-00009" summary="some orgnization">
+      <option name="closed" value="true" />
+      <created>1718108048317</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1718108048317</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -167,6 +240,13 @@
     <MESSAGE value="instructions on how to get API keys" />
     <MESSAGE value="function to read fire_data and get images from sentinel" />
     <MESSAGE value="firenews.ipynb by Dong added (Dong have problem with github accses)" />
-    <option name="LAST_COMMIT_MESSAGE" value="firenews.ipynb by Dong added (Dong have problem with github accses)" />
+    <MESSAGE value="sentinal new credinal and use of curl" />
+    <MESSAGE value="some orgnization" />
+    <option name="LAST_COMMIT_MESSAGE" value="some orgnization" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/ki_Geo_project$read_weather.coverage" NAME="read_weather Coverage Results" MODIFIED="1718116631040" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/data_mining" />
+    <SUITE FILE_PATH="coverage/ki_Geo_project$get_sat2_images.coverage" NAME="get_sat2_images Coverage Results" MODIFIED="1718112269880" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/data_mining" />
+    <SUITE FILE_PATH="coverage/ki_Geo_project$read_firenews.coverage" NAME="read_firenews Coverage Results" MODIFIED="1718114688995" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/data_mining" />
   </component>
 </project>
