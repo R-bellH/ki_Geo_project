@@ -1,5 +1,11 @@
-
 ![img.png](img.png)
+# presentation 
+you can find more information in [the presentation](Presentation1.pptx)
+# the team
+* Jessica Lim
+* Yuanzhe Dong
+* Kwabena Opoku
+* Arbel Hadar
 # **Sources**
 
 we use the following data sources via their APIs
@@ -96,6 +102,7 @@ Install them with:
 
 ```bash
 pip install requests sentinelhub PIL
+```
 
 
 
