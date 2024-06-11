@@ -1,4 +1,3 @@
-
 ![img.png](img.png)
 # **Sources**
 
@@ -96,6 +95,9 @@ Install them with:
 
 ```bash
 pip install requests sentinelhub PIL
+```
+# more
+you can find more information in [the presentation](Presentation1.pptx)
 
 
 
