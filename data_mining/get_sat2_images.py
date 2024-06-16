@@ -34,9 +34,16 @@ def get_config(client_id, client_secret):
 
 def request_all_bands_sentinel(coordinates, time_interval, config):
     padding = 0.1
-    bbox_coords_wgs = [coordinates['latitude'] - padding, coordinates['longitude'] - padding,
-                       coordinates['latitude'] + padding,
-                       coordinates['longitude'] + padding]
+    # # box centered around the coordinates
+    # bbox_coords_wgs = [coordinates['latitude'] - padding, coordinates['longitude'] - padding,
+    #                    coordinates['latitude'] + padding,
+    #                    coordinates['longitude'] + padding]
+
+    # box with the coordinates as the bottom left corner (changed to deal with centring& uniting)
+    bbox_coords_wgs = [coordinates['latitude']-0.01,
+                       coordinates['longitude']-0.01,
+                       coordinates['latitude'] + 2 * padding,
+                       coordinates['longitude'] + 2 * padding]
     bbox = BBox(bbox_coords_wgs, crs=CRS.WGS84)
 
     x_size = 190
