@@ -1,0 +1,101 @@
+latitude,longitude,date,location,time
+39.95,8.64,2024-06-06,Siamaggiore,0803
+37.24,13.67,2024-06-03,Punta Bianca,0906
+39.93,18.15,2024-06-03,"Ugento, Basso Salento",0916
+39.25,9.0,2024-05-30,Macchiareddu/Uta,0843
+42.42,14.29,2024-05-28,"Setteventi, Francavilla al Mare",1525
+38.09,15.46,2024-05-23,Pezzolo,0840
+40.71,13.89,2024-05-22,Serrara Fontana,1003
+40.42,8.77,2024-05-14,Bonorva,0823
+36.79,11.99,2024-05-13,"Scauri Basso, Pantelleria",0836
+41.88,14.58,2024-05-15,Celenza Sul Trigno,0741
+38.02,12.88,2024-05-08,Castellammare del Golfo,0744
+38.21,15.5,2024-04-30,San Rizzo,0809
+37.8,12.43,2024-04-29,Marsala,1509
+37.3,13.53,2024-04-29,Porto Empedocle,0915
+39.29,8.99,2024-04-29,Assemini,0919
+36.79,14.71,2024-04-30,Scicli,0858
+39.75,8.6,2024-04-30,Terralba/Arborea,0944
+43.97,7.95,2023-09-28,Borgomaro,0805
+39.62,8.96,2023-09-28,"Villamar, Pranu Idda",0806
+41.36,13.44,2023-09-21,Fondi,0905
+38.14,14.96,2023-09-21,Patti,0906
+38.13,15.21,2023-09-21,"Acquaficara, Messinia",0751
+40.61,14.41,2023-09-20,Colli di Fontanelle,1021
+39.34,9.35,2023-09-19,Burcei,1055
+40.59,15.69,2023-09-19,"Tito, Potanza",1045
+38.97,16.43,2023-09-18,Colangelo,1141
+43.97,11.1,2023-09-15,Schignano,0847
+42.43,11.11,2023-09-15,"Monte Argentario, Grosseto",0839
+42.66,13.26,2023-09-15,Amatrice,0942
+40.38,15.38,2023-09-14,Sacco,0834
+43.93,7.88,2023-09-13,Montalto Carpasio,1050
+41.52,14.67,2023-09-13,Mirabello Sannitico,0852
+40.7,13.92,2023-09-12,Barano d'Ischia,0838
+42.64,13.85,2023-09-12,Castellalto,0902
+40.72,14.94,2023-09-12,Giffoni Valle Piana,0904
+40.79,14.37,2023-09-12,Torre del Greco,0939
+40.04,18.47,2023-09-11,Santa Cesarea Terme,0843
+40.31,18.14,2023-09-11,Lequile,0853
+40.8,14.39,2023-09-08,"Torre del Greco, Vesuvius",0813
+37.27,13.63,2023-09-08,Timpa dei Palombi,0853
+41.1,14.14,2023-09-08,Domiziana,0930
+40.42,15.01,2023-09-07,Santa Venere,0837
+41.87,15.01,2023-09-07,San Martino in Pensilis,0856
+39.83,16.29,2023-09-06,Parco del Pollino,1018
+41.01,14.48,2023-09-06,"San Felice a Cancello, Talanico",0950
+37.57,15.1,2023-09-06,San Giovanni La Punta,0738
+40.22,15.18,2023-09-06,Castelnuovo Cilento,0737
+40.61,14.99,2023-09-06,Battipaglia,0742
+40.8,14.08,2023-09-06,"Bacoli, Campi Flegrei",0957
+41.12,16.7,2023-09-05,Bitonto,0811
+37.32,13.55,2023-09-05,Monserrato/Montaperto,0852
+38.15,15.51,2023-09-05,Zafferia,0853
+37.57,14.91,2023-09-05,Paternò,0902
+38.12,14.75,2023-09-01,"Malò, Naso",1040
+37.98,13.68,2023-08-31,Termini Imerese,1136
+40.85,9.46,2023-08-31,Enas,1151
+41.49,14.04,2023-08-30,Venafro,1012
+42.83,13.33,2023-08-28,Parco dei Sibillini,1510
+40.72,13.88,2023-08-28,Montecorvo,1048
+37.99,12.51,2023-08-28,Trapani,1039
+38.21,15.51,2023-08-28,Messina,0927
+40.04,15.31,2023-08-28,Mingardina,0925
+36.96,14.53,2023-08-23,"Vittoria, Ragusa",1009
+39.92,16.11,2023-08-23,Parco del Pollino,1007
+42.81,10.41,2023-08-22,Elba,0813
+37.68,13.36,2023-08-22,Valle del Sosio,0819
+41.3,13.6,2023-08-22,"Formia, Latina",0823
+44.56,2.22,2023-08-22,Viviez,0950
+38.57,14.56,2023-08-21,Filicudi,1148
+43.6,1.23,2023-08-21,"Léguevin, Toulouse",1152
+37.43,14.48,2023-08-17,"Aidone, Enna",1522
+37.39,15.08,2023-08-10,Oasi del Simeto,0820
+40.64,9.72,2023-08-07,"Posada, Sardegna",0856
+43.62,11.49,2023-08-04,"Valdarno, Arezzo",1003
+37.57,14.28,2023-08-04,Enna,1026
+41.21,15.34,2023-08-02,Accadia/Bovino,0907
+42.22,13.96,2023-08-02,Bolognano,1011
+44.23,11.77,2023-08-02,Brisighella,1007
+41.49,14.04,2023-08-01,Venafro,0816
+41.12,9.53,2023-08-01,Costa Smeralda,0818
+43.84,7.55,2023-07-27,Torri/Varase,0835
+37.74,15.19,2023-07-25,Riposto,1059
+38.17,13.13,2023-07-25,Palermo Airport,0819
+38.15,14.96,2023-08-03,Patti,0916
+44.26,9.76,2023-07-24,"Rocchetta di Vara, La Spezia",1047
+36.79,12.0,2023-07-24,Pantelleria,1054
+38.09,13.28,2023-07-24,"Castellaccio, Monreale",1041
+37.58,13.22,2023-07-20,Caltabellotta,1002
+38.19,15.53,2023-07-20,"Camaro/Scoppo, Messina",1107
+40.06,18.01,2023-07-19,Gallipoli,1117
+37.96,12.97,2023-07-18,Monte Bonifato,1044
+39.99,18.39,2023-07-17,Andrano,1030
+37.96,12.96,2023-07-17,"Mount Bonifato, Alcamo",0855
+41.72,15.84,2023-07-14,Monte Sant’Angelo,0943
+38.01,15.7,2023-07-04,"Motta San Giovanni,",0755
+39.55,8.78,2023-06-22,San Gavino,0902
+40.57,9.69,2023-05-11,"Siniscola, Sardinia",0825
+40.28,9.39,2023-05-11,Badde Manna,0855
+43.22,12.47,2023-05-22,Morleschio,1347
+39.45,8.73,2023-04-28,Villacidro,1429

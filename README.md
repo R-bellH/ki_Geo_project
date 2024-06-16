@@ -1,5 +1,5 @@
 ![img.png](img.png)
-# presentation 
+# presentation
 you can find more information in [the presentation](Presentation1.pptx)
 # the team
 * Jessica Lim
@@ -113,13 +113,13 @@ pip install requests sentinelhub PIL
     Confidence/fire radioactive power
     Humidity
     Wind Speed
-    
+
 - Focusing on areas which are of shape interest. The coordinates are modified by trimming into 2 decimal place.​
 
 
 # Model (Recurrent Neural Network)
 A deep learning framework using tensorflow.
- 
+
 # Training / Testing
 # Validation
 
