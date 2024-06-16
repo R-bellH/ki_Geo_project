@@ -105,6 +105,22 @@ pip install requests sentinelhub PIL
 ```
 
 
+# Data Collection, Cleaning and Enhancement
+- Pull of needed data details from the various sources, based on the scope of the project.
+- The data are cleaned and also vital data features of interest are considered.Such as:
+    Location Coordinates
+    Time of Occurrence
+    Confidence/fire radioactive power
+    Humidity
+    Wind Speed
+    
+- Focusing on areas which are of shape interest. The coordinates are modified by trimming into 2 decimal place.​
 
+
+# Model (Recurrent Neural Network)
+A deep learning framework using tensorflow.
+ 
+# Training / Testing
+# Validation
 
 
