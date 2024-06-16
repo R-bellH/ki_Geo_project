@@ -104,16 +104,16 @@ def call_sentinel(client_id, client_secret, coordinates, time_interval, save=Fal
     image = request_all_bands_sentinel(coordinates, time_interval, config)
     if image.mean() == 0:
         print(
-            f"Picture not found for location {coordinates['latitude']}, {coordinates['longitude']} on {coordinates['date']}")
-        return 1
+            f"Picture not found for location {coordinates['latitude']}, {coordinates['longitude']} on {time_interval[1]}")
+        return False
     elif save:
         folder = f"sentinel_images/{coordinates['latitude']},{coordinates['longitude']}"
         os.makedirs(folder, exist_ok=True)
         # save output as TIFF
-        imwrite(folder + f"/{coordinates['date']}.tiff", image)
+        imwrite(folder + f"/{time_interval[1]}.tiff", image)
     else:
         plot_image(image[:, :, 12], factor=3.5 / 1e4, vmax=1)
-    return 0
+    return True
 
 
 def request_all_bands_sentinel_no_oatue2(coordinates, time_interval, access_token):

@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="44b15f9d-759f-49b0-9a71-48ca12d893a5" name="Changes" comment="fixes for data_to_tensor.py">
+    <list default="true" id="44b15f9d-759f-49b0-9a71-48ca12d893a5" name="Changes" comment="fixes for main.ipynb and get_sat2_images.py">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_mining/fire_confidence/preprocess_fire_confidence.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/data_mining/fire_confidence/preprocess_fire_confidence.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data_mining/get_sat2_images.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_mining/get_sat2_images.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data_mining/main.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/data_mining/main.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_to_tensor.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_to_tensor.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -211,7 +209,7 @@
       <workItem from="1718030190024" duration="28149000" />
       <workItem from="1718174034743" duration="43000" />
       <workItem from="1718530006165" duration="10381000" />
-      <workItem from="1718541474446" duration="5578000" />
+      <workItem from="1718541474446" duration="12298000" />
     </task>
     <task id="LOCAL-00001" summary="INNIT">
       <option name="closed" value="true" />
@@ -333,7 +331,15 @@
       <option name="project" value="LOCAL" />
       <updated>1718541972305</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="fixes for main.ipynb and get_sat2_images.py">
+      <option name="closed" value="true" />
+      <created>1718547227645</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1718547227645</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -350,10 +356,11 @@
     <MESSAGE value="git still give Dong problmes so here it commited here" />
     <MESSAGE value="date_to_tensor.py added&#10;bbox changed to corner over center" />
     <MESSAGE value="fixes for data_to_tensor.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixes for data_to_tensor.py" />
+    <MESSAGE value="fixes for main.ipynb and get_sat2_images.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixes for main.ipynb and get_sat2_images.py" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/ki_Geo_project$del.coverage" NAME="del Coverage Results" MODIFIED="1718543457920" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ki_Geo_project$del.coverage" NAME="del Coverage Results" MODIFIED="1718553799441" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ki_Geo_project$idk.coverage" NAME="idk Coverage Results" MODIFIED="1718538634044" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\just let me in\Desktop\technion\semester_8_student_exchange\CLM KI&amp;Geoinfo\ki_Geo_project" />
     <SUITE FILE_PATH="coverage/ki_Geo_project$read_weather.coverage" NAME="read_weather Coverage Results" MODIFIED="1718116631040" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/data_mining" />
     <SUITE FILE_PATH="coverage/ki_Geo_project$get_sat2_images.coverage" NAME="get_sat2_images Coverage Results" MODIFIED="1718112269880" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/data_mining" />
