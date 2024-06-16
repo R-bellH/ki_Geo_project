@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="44b15f9d-759f-49b0-9a71-48ca12d893a5" name="Changes" comment="date_to_tensor.py added&#10;bbox changed to corner over center" />
+    <list default="true" id="44b15f9d-759f-49b0-9a71-48ca12d893a5" name="Changes" comment="date_to_tensor.py added&#10;bbox changed to corner over center">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_mining/weather.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/data_mining/weather.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_to_tensor.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_to_tensor.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -45,26 +49,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Python.get_sat2_images.executor": "Run",
-    "Python.idk.executor": "Run",
-    "Python.read_firenews.executor": "Run",
-    "Python.read_weather.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/just let me in/Desktop/technion/semester_8_student_exchange/CLM KI&Geoinfo/ki_Geo_project",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Python.del.executor&quot;: &quot;Run&quot;,
+    &quot;Python.get_sat2_images.executor&quot;: &quot;Run&quot;,
+    &quot;Python.idk.executor&quot;: &quot;Run&quot;,
+    &quot;Python.read_firenews.executor&quot;: &quot;Run&quot;,
+    &quot;Python.read_weather.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/just let me in/Desktop/technion/semester_8_student_exchange/CLM KI&amp;Geoinfo/ki_Geo_project&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\just let me in\Desktop\technion\semester_8_student_exchange\CLM KI&amp;Geoinfo\ki_Geo_project" />
@@ -75,7 +80,7 @@
       <recent name="C:\Users\just let me in\Desktop\technion\semester_8_student_exchange\CLM KI&amp;Geoinfo\ki_Geo_project\data_mining" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.data_to_tensor">
+  <component name="RunManager" selected="Python.del">
     <configuration name="data_to_tensor" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="ki_Geo" />
       <option name="ENV_FILES" value="" />
@@ -92,6 +97,29 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="C:\Users\just let me in\Desktop\technion\semester_8_student_exchange\CLM KI&amp;Geoinfo\ki_Geo_project\data_to_tensor.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="del" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="ki_Geo" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/del.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -148,11 +176,13 @@
     </configuration>
     <list>
       <item itemvalue="Python.data_to_tensor" />
+      <item itemvalue="Python.del" />
       <item itemvalue="Python.read_firenews" />
       <item itemvalue="Python.read_weather" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.del" />
         <item itemvalue="Python.read_weather" />
         <item itemvalue="Python.read_firenews" />
       </list>
@@ -178,7 +208,8 @@
       <workItem from="1717499358246" duration="12112000" />
       <workItem from="1718030190024" duration="28149000" />
       <workItem from="1718174034743" duration="43000" />
-      <workItem from="1718530006165" duration="9170000" />
+      <workItem from="1718530006165" duration="10381000" />
+      <workItem from="1718541474446" duration="467000" />
     </task>
     <task id="LOCAL-00001" summary="INNIT">
       <option name="closed" value="true" />
@@ -276,7 +307,23 @@
       <option name="project" value="LOCAL" />
       <updated>1718539849282</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="date_to_tensor.py added&#10;bbox changed to corner over center">
+      <option name="closed" value="true" />
+      <created>1718540045266</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1718540045266</updated>
+    </task>
+    <task id="LOCAL-00014" summary="date_to_tensor.py added&#10;bbox changed to corner over center">
+      <option name="closed" value="true" />
+      <created>1718540194211</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1718540194211</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -295,6 +342,7 @@
     <option name="LAST_COMMIT_MESSAGE" value="date_to_tensor.py added&#10;bbox changed to corner over center" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/ki_Geo_project$del.coverage" NAME="del Coverage Results" MODIFIED="1718540306217" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ki_Geo_project$idk.coverage" NAME="idk Coverage Results" MODIFIED="1718538634044" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\just let me in\Desktop\technion\semester_8_student_exchange\CLM KI&amp;Geoinfo\ki_Geo_project" />
     <SUITE FILE_PATH="coverage/ki_Geo_project$read_weather.coverage" NAME="read_weather Coverage Results" MODIFIED="1718116631040" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/data_mining" />
     <SUITE FILE_PATH="coverage/ki_Geo_project$get_sat2_images.coverage" NAME="get_sat2_images Coverage Results" MODIFIED="1718112269880" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/data_mining" />
