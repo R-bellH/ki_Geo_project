@@ -39,7 +39,7 @@ def location2sentence(fires, location):
 
     dates = []
     for day in fire.iterrows():
-        day = day[1]["acq_date"].split("T")[0]
+        day = day[1]["day"]
         # generate area around the date
         day_date = datetime.strptime(day, "%Y-%m-%d")
         # dates = [(day_date + timedelta(days=i)).strftime("%Y-%m-%d") for i in range(-15, 16)] # get 30 days around that date
@@ -56,6 +56,7 @@ def location2sentence(fires, location):
 
 if __name__ == "__main__":
     fires = pd.read_csv("data_mining/fire_news.csv")
+    fires["day"] = fires["acq_date"].map(lambda x: x.split("T")[0])
     location = {"latitude": 8.635563034028015, "longitude": 39.95169788042532}
     location2sentence(fires, location)
     # # test

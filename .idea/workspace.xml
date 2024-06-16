@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="44b15f9d-759f-49b0-9a71-48ca12d893a5" name="Changes" comment="git still give Dong problmes so here it commited here">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_mining/get_sat2_images.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_mining/get_sat2_images.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_mining/main.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/data_mining/main.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pic" beforeDir="false" />
-    </list>
+    <list default="true" id="44b15f9d-759f-49b0-9a71-48ca12d893a5" name="Changes" comment="date_to_tensor.py added&#10;bbox changed to corner over center" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -80,8 +75,8 @@
       <recent name="C:\Users\just let me in\Desktop\technion\semester_8_student_exchange\CLM KI&amp;Geoinfo\ki_Geo_project\data_mining" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.idk">
-    <configuration name="idk" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.data_to_tensor">
+    <configuration name="data_to_tensor" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="ki_Geo" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -96,7 +91,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/idk.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\just let me in\Desktop\technion\semester_8_student_exchange\CLM KI&amp;Geoinfo\ki_Geo_project\data_to_tensor.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -152,7 +147,7 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.idk" />
+      <item itemvalue="Python.data_to_tensor" />
       <item itemvalue="Python.read_firenews" />
       <item itemvalue="Python.read_weather" />
     </list>
@@ -183,7 +178,7 @@
       <workItem from="1717499358246" duration="12112000" />
       <workItem from="1718030190024" duration="28149000" />
       <workItem from="1718174034743" duration="43000" />
-      <workItem from="1718530006165" duration="8846000" />
+      <workItem from="1718530006165" duration="9170000" />
     </task>
     <task id="LOCAL-00001" summary="INNIT">
       <option name="closed" value="true" />
@@ -273,7 +268,15 @@
       <option name="project" value="LOCAL" />
       <updated>1718117749181</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="date_to_tensor.py added&#10;bbox changed to corner over center">
+      <option name="closed" value="true" />
+      <created>1718539849282</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1718539849282</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -288,7 +291,8 @@
     <MESSAGE value="some orgnization" />
     <MESSAGE value="streamline data collection&#10;simply run the data_mining\main.ipynb file." />
     <MESSAGE value="git still give Dong problmes so here it commited here" />
-    <option name="LAST_COMMIT_MESSAGE" value="git still give Dong problmes so here it commited here" />
+    <MESSAGE value="date_to_tensor.py added&#10;bbox changed to corner over center" />
+    <option name="LAST_COMMIT_MESSAGE" value="date_to_tensor.py added&#10;bbox changed to corner over center" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ki_Geo_project$idk.coverage" NAME="idk Coverage Results" MODIFIED="1718538634044" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\just let me in\Desktop\technion\semester_8_student_exchange\CLM KI&amp;Geoinfo\ki_Geo_project" />
