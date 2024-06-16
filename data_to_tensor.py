@@ -56,7 +56,7 @@ def location2sentence(fires, location):
         day = day[1]["acq_date"]
         # generate area around the date
         day_date = datetime.strptime(day, "%Y-%m-%d")
-        # dates = [(day_date + timedelta(days=i)).strftime("%Y-%m-%d") for i in range(-15, 16)] # get 30 days around that date
+        # _dates = [(day_date + timedelta(days=i)).strftime("%Y-%m-%d") for i in range(-15, 16)] # get 30 days around that date
         _dates = [(day_date + timedelta(weeks=i)).strftime("%Y-%m-%d") for i in
                   range(-2, 2)]  # sample every week for a month around that date
         dates = dates + _dates
@@ -88,7 +88,6 @@ if __name__ == "__main__":
     # weather_date.drop(columns=['date', 'day'], inplace=True)
     location = {"latitude": 40.50196, "longitude": 17.21493}
     data=data2tensor(location,"2024-05-07")
-    breakpoint()
     # tensor_weather=tf.convert_to_tensor(weather_date)
     # print(tensor_weather)
     # print(tensor_weather.shape)

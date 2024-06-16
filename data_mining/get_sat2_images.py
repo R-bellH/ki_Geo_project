@@ -104,14 +104,16 @@ def call_sentinel(client_id, client_secret, coordinates, time_interval, save=Fal
     image = request_all_bands_sentinel(coordinates, time_interval, config)
     if image.mean() == 0:
         print(
-            f"Picture not found for location {coordinates['latitude']}, {coordinates['longitude']} on {coordinates['acq_date']}")
+            f"Picture not found for location {coordinates['latitude']}, {coordinates['longitude']} on {coordinates['date']}")
+        return 1
     elif save:
         folder = f"sentinel_images/{coordinates['latitude']},{coordinates['longitude']}"
         os.makedirs(folder, exist_ok=True)
         # save output as TIFF
-        imwrite(folder + f"/{coordinates['acq_date']}.tiff", image)
+        imwrite(folder + f"/{coordinates['date']}.tiff", image)
     else:
         plot_image(image[:, :, 12], factor=3.5 / 1e4, vmax=1)
+    return 0
 
 
 def request_all_bands_sentinel_no_oatue2(coordinates, time_interval, access_token):
@@ -222,14 +224,14 @@ def plot_image(
 if __name__ == '__main__':
     # example of use
     fire_data = pd.read_csv("fire_data.csv")
-    fire_data = fire_data[["latitude", "longitude", "acq_date", "daynight"]]
+    fire_data = fire_data[["latitude", "longitude", "date", "daynight"]]
     client_id = '4d093505-d867-4ae4-90b0-468eb78dd9af'
     client_secret = 'UHSroMy3xUHqh0SakSXrPvCejglb2eyH'
     config = get_config(client_id, client_secret)
     for fire in fire_data.iterrows():
         fire = fire[1]
-        # coordinates = {'latitude': fire['latitude'], 'longitude': fire[''], 'acq_date': fire[2]}
-        day = fire["acq_date"]
+        # coordinates = {'latitude': fire['latitude'], 'longitude': fire[''], 'date': fire[2]}
+        day = fire["date"]
         day_date = datetime.strptime(day, "%Y-%m-%d")
         yesterday = (day_date - timedelta(days=1)).strftime("%Y-%m-%d")
         time_interval = (yesterday, day)
