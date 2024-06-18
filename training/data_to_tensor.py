@@ -6,25 +6,33 @@ import numpy as np
 import pandas as pd
 from datetime import datetime, timedelta
 
-
+w_features=14
+hours=24
+width=190
+hight=190
+bands=13
 def data2tensor(location, date):
     """
     take location (latitude, longitude) and a date "yy-mm-dd" and return a tensor vector representations
-    :returns: bands tensor (hXwXbands) (117X190X13), weather tensor (hourX(temp, 10m_speed,100m_speed) (24X3)
+    :returns: bands tensor (hXwXbands) (190X190X13), weather tensor (hourX(temp, 10m_speed,100m_speed) (24X14)
     """
     try:
         tensor_bands = read_sentinel_tiff(location, date)
-        print(tensor_bands)
     except Exception as e:
         print(e)
         print("couldn't find picture")
-        return None, None
+        tensor_bands = tf.convert_to_tensor(np.zeros((width,hight,bands)), dtype='float32')
     try:
         tensor_weather = read_weather_data(location, date)
-        print(tensor_weather)
     except Exception as e:
         print("couldn't find weather")
-        return None, None
+        print(e)
+        tensor_weather=tf.convert_to_tensor(np.zeros((hours,w_features)), dtype='float32')
+
+    # print(tensor_bands)
+    # print(tensor_weather)
+    # tensor_bands = tensor_bands.astype('float32')
+    # tensor_weather = tensor_weather.astype('float32')
     return tensor_bands, tensor_weather
 
 
@@ -32,43 +40,36 @@ def read_sentinel_tiff(location, date):
     path2sentinel = f"data_mining/sentinel_images/{location['latitude']},{location['longitude']}"
 
     bands = imread(path2sentinel + f"/{date}.tiff")
-    return tf.convert_to_tensor(bands)
+    return tf.convert_to_tensor(bands, dtype='float32')
 
 
 def read_weather_data(location, date):
     # path2weather = f"data_mining/weather_data/{location['latitude']},{location['longitude']}.csv"
     path2weather = f"data_mining/weather_data/{location['latitude']},{location['longitude']}.csv"
-
     weather = pd.read_csv(path2weather, index_col=0)
+    weather.drop_duplicates(inplace=True)
     weather["day"] = weather["date"].map(lambda x: x.split(" ")[0])
     weather_date = weather[weather["day"] == date]
     weather_date.drop(columns=['date', 'day'], inplace=True)
-    return tf.convert_to_tensor(weather_date)
+    weather_date = weather_date.astype(float)
+    if weather_date.empty:
+        raise Exception(f"couldn't find data for {date}, at : {location}")
+    return tf.convert_to_tensor(weather_date, dtype='float32')
 
 
 def location2sentence(fires, location):
     print(f"current location: {location}")
     fire = fires[fires['latitude'] == location['latitude']]
     fire = fire[fire['longitude'] == location['longitude']]
-
-    dates = []
-    for day in fire.iterrows():
-        day = day[1]["acq_date"]
-        # generate area around the date
-        day_date = datetime.strptime(day, "%Y-%m-%d")
-        # _dates = [(day_date + timedelta(days=i)).strftime("%Y-%m-%d") for i in range(-15, 16)] # get 30 days around that date
-        _dates = [(day_date + timedelta(weeks=i)).strftime("%Y-%m-%d") for i in
-                  range(-2, 2)]  # sample every week for a month around that date
-        dates = dates + _dates
-
+    day_date = datetime.strptime(location['date'], "%Y-%m-%d")
+    dates = [(day_date + timedelta(days=i)).strftime("%Y-%m-%d") for i in
+             range(-7, 2)]  # sample every week for a month around that date
     tensor_bands_list, tensor_weather_list=[], []
     for date in dates:
         tensor_bands, tensor_weather = data2tensor(location,date)
-        if tensor_bands:
-            tensor_bands_list.append(tensor_bands)
-            tensor_weather_list.append(tensor_weather)
-        else:
-            print(f"failed fetching for date {date}")
+        tensor_bands_list.append(tensor_bands)
+        tensor_weather_list.append(tensor_weather)
+
     sentence_bands = tf.stack(tensor_bands_list)
     sentence_weather = tf.stack(tensor_weather_list)
     return sentence_bands, sentence_weather
@@ -86,8 +87,8 @@ if __name__ == "__main__":
     # weather["day"]=weather["date"].map(lambda x: x.split(" ")[0])
     # weather_date = weather[weather["day"] == "2024-05-06"]
     # weather_date.drop(columns=['date', 'day'], inplace=True)
-    location = {"latitude": 40.50196, "longitude": 17.21493}
-    data=data2tensor(location,"2024-05-07")
+    location = {"latitude": 36.96, "longitude": 14.53}
+    data=data2tensor(location,"2023-08-17")
     # tensor_weather=tf.convert_to_tensor(weather_date)
     # print(tensor_weather)
     # print(tensor_weather.shape)

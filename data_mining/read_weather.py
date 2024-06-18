@@ -22,9 +22,12 @@ def get_weather(openmeteo_session, coordinates, time_interval, verbose=False, sa
     params = {
         "latitude": coordinates['latitude'],
         "longitude": coordinates['longitude'],
-        "start_date": f"{time_interval[0]}",
-        "end_date": f"{time_interval[1]}",
-        "hourly": ["temperature_2m", "wind_speed_10m", "wind_speed_100m"]
+        "start_date": time_interval[0],
+        "end_date": time_interval[1],
+        "hourly": ["temperature_2m", "relative_humidity_2m", "apparent_temperature", "precipitation", "rain",
+                   "wind_speed_10m", "soil_temperature_0_to_7cm", "soil_temperature_7_to_28cm",
+                   "soil_temperature_28_to_100cm", "soil_temperature_100_to_255cm", "soil_moisture_0_to_7cm",
+                   "soil_moisture_7_to_28cm", "soil_moisture_28_to_100cm", "soil_moisture_100_to_255cm"]
     }
     responses = openmeteo_session.weather_api(url, params=params)
 
@@ -39,8 +42,19 @@ def get_weather(openmeteo_session, coordinates, time_interval, verbose=False, sa
     # Process hourly data. The order of variables needs to be the same as requested.
     hourly = response.Hourly()
     hourly_temperature_2m = hourly.Variables(0).ValuesAsNumpy()
-    hourly_wind_speed_10m = hourly.Variables(1).ValuesAsNumpy()
-    hourly_wind_speed_100m = hourly.Variables(2).ValuesAsNumpy()
+    hourly_relative_humidity_2m = hourly.Variables(1).ValuesAsNumpy()
+    hourly_apparent_temperature = hourly.Variables(2).ValuesAsNumpy()
+    hourly_precipitation = hourly.Variables(3).ValuesAsNumpy()
+    hourly_rain = hourly.Variables(4).ValuesAsNumpy()
+    hourly_wind_speed_10m = hourly.Variables(5).ValuesAsNumpy()
+    hourly_soil_temperature_0_to_7cm = hourly.Variables(6).ValuesAsNumpy()
+    hourly_soil_temperature_7_to_28cm = hourly.Variables(7).ValuesAsNumpy()
+    hourly_soil_temperature_28_to_100cm = hourly.Variables(8).ValuesAsNumpy()
+    hourly_soil_temperature_100_to_255cm = hourly.Variables(9).ValuesAsNumpy()
+    hourly_soil_moisture_0_to_7cm = hourly.Variables(10).ValuesAsNumpy()
+    hourly_soil_moisture_7_to_28cm = hourly.Variables(11).ValuesAsNumpy()
+    hourly_soil_moisture_28_to_100cm = hourly.Variables(12).ValuesAsNumpy()
+    hourly_soil_moisture_100_to_255cm = hourly.Variables(13).ValuesAsNumpy()
 
     hourly_data = {"date": pd.date_range(
         start=pd.to_datetime(hourly.Time(), unit="s", utc=True),
@@ -49,8 +63,19 @@ def get_weather(openmeteo_session, coordinates, time_interval, verbose=False, sa
         inclusive="left"
     )}
     hourly_data["temperature_2m"] = hourly_temperature_2m
+    hourly_data["relative_humidity_2m"] = hourly_relative_humidity_2m
+    hourly_data["apparent_temperature"] = hourly_apparent_temperature
+    hourly_data["precipitation"] = hourly_precipitation
+    hourly_data["rain"] = hourly_rain
     hourly_data["wind_speed_10m"] = hourly_wind_speed_10m
-    hourly_data["wind_speed_100m"] = hourly_wind_speed_100m
+    hourly_data["soil_temperature_0_to_7cm"] = hourly_soil_temperature_0_to_7cm
+    hourly_data["soil_temperature_7_to_28cm"] = hourly_soil_temperature_7_to_28cm
+    hourly_data["soil_temperature_28_to_100cm"] = hourly_soil_temperature_28_to_100cm
+    hourly_data["soil_temperature_100_to_255cm"] = hourly_soil_temperature_100_to_255cm
+    hourly_data["soil_moisture_0_to_7cm"] = hourly_soil_moisture_0_to_7cm
+    hourly_data["soil_moisture_7_to_28cm"] = hourly_soil_moisture_7_to_28cm
+    hourly_data["soil_moisture_28_to_100cm"] = hourly_soil_moisture_28_to_100cm
+    hourly_data["soil_moisture_100_to_255cm"] = hourly_soil_moisture_100_to_255cm
 
     hourly_dataframe = pd.DataFrame(data=hourly_data)
     if verbose:
@@ -58,8 +83,9 @@ def get_weather(openmeteo_session, coordinates, time_interval, verbose=False, sa
     if save:
         folder = f"weather_data"
         os.makedirs(folder, exist_ok=True)
-        hourly_dataframe.to_csv(folder+f"/{coordinates['latitude']},{coordinates['longitude']}.csv")
+        hourly_dataframe.to_csv(folder+f"/{coordinates['latitude']},{coordinates['longitude']}.csv",mode='a')
     return hourly_dataframe
+
 
 if __name__=="__main__":
     coordinates = {
