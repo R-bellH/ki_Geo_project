@@ -23,7 +23,8 @@ def _fetch_fire_news(startDate, endDate):
     except requests.exceptions.RequestException as e:
         print("Error fetching fire news:", e)
         return None
-def fetch_fire_news(startDat, endDate, verbose=False, save=False):
+
+def fetch_fire_news(startDate, endDate, verbose=False, save=False):
     fire_news = _fetch_fire_news(startDate, endDate)
     if fire_news:
         number_of_reported_fires_italy = len(fire_news['results'])
@@ -32,23 +33,28 @@ def fetch_fire_news(startDat, endDate, verbose=False, save=False):
         latitudes = []
         longitudes = []
         dates = []
+        locations = []
 
         for ans in fire_news['results']:
             coordinate = ans['geom']['coordinates']
             updated_time = ans['updated']
-            latitudes.append(coordinate[0])
-            longitudes.append(coordinate[1])
+            location = ans['place']
+            latitudes.append(coordinate[1])
+            longitudes.append(coordinate[0])
             dates.append(updated_time)
+            locations.append(location)
             if verbose:
                 print("coordinates：", coordinate)
                 print("updated_time：", updated_time)
                 print("--------------------------------------")
-        fires = pd.DataFrame(columns=["latitude", "longitude", "acq_date"])
+        fires = pd.DataFrame(columns=["latitude", "longitude", "acq_date", "location"])
         fires["latitude"] = latitudes
         fires["longitude"] = longitudes
         fires["acq_date"] = dates
+        fires["location"] = locations
         if save:
-            fires.to_csv("fire_news.csv",index=False)
+            print("saving to csv")
+            fires.to_csv("./data_mining/fire_news/fire_news.csv",index=False)
         return fires
     else:
         if verbose:
