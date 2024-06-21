@@ -5,6 +5,9 @@ from keras.models import Model
 from keras.layers import LSTM, Dense, Input, TimeDistributed, Flatten, Concatenate, Reshape, Masking
 import os
 from data_to_tensor import location2sentence
+from tensorflow.keras.utils import Sequence
+import numpy as np
+
 
 # Define image input shape
 image_height = 190
@@ -75,41 +78,66 @@ def make_all_dates():
     fire_weather = pd.DataFrame(rows, columns=["latitude", "longitude", "date"])
     return fire_weather
 
+
+class FireDataGenerator(Sequence):
+    def __init__(self, data_frame, batch_size=2, shuffle=True):
+        self.data_frame = data_frame  # 完整的标签数据框
+        self.batch_size = batch_size
+        self.shuffle = shuffle
+        self.indices = np.arange(len(self.data_frame))
+        if self.shuffle:
+            np.random.shuffle(self.indices)
+
+    def __len__(self):
+        return int(np.ceil(len(self.data_frame) / self.batch_size))
+
+    def on_epoch_end(self):
+        if self.shuffle:
+            np.random.shuffle(self.indices)
+
+    def __getitem__(self, index):
+        batch_indices = self.indices[index * self.batch_size:(index + 1) * self.batch_size]
+        batch = self.data_frame.iloc[batch_indices]
+        X, y = self.__data_generation(batch)
+        return X, y
+
+    def __data_generation(self, batch):
+        pic_list = []
+        weather_list = []
+        labels_list = []
+        
+        for _, fire in batch.iterrows():
+            sentence, labels = location2sentence(self.data_frame, fire)
+            pic_list.append(sentence[0])
+            weather_list.append(sentence[1])
+            labels_list.append(labels)
+
+        # 转换为适合模型输入的张量格式
+        pic_list = tf.convert_to_tensor(pic_list, dtype=tf.float32)
+        weather_list = tf.convert_to_tensor(weather_list, dtype=tf.float32)
+        labels_list = tf.convert_to_tensor(labels_list, dtype=tf.float32)
+        labels_list = tf.expand_dims(labels_list, axis=-1)  # 确保标签的维度正确
+
+        return [pic_list, weather_list], labels_list
+
+
 def run():
     path = os.path.abspath(os.getcwd()) + r"\ki_Geo_project\data_mining\fire_labels\fire_labels_final.csv"
     fires = pd.read_csv(path)
-    fires['latitude']=fires['latitude'].astype(str)
-    fires['longitude']=fires['longitude'].astype(str)
-    fires['date']=fires['date'].astype(str)
+    fires['latitude'] = fires['latitude'].astype(str)
+    fires['longitude'] = fires['longitude'].astype(str)
+    fires['date'] = fires['date'].astype(str)
     pictures = make_all_dates()
     fires = fires[['latitude', 'longitude', 'date']]
     labels = pd.merge(pictures, fires, on=['latitude', 'longitude', 'date'], how='inner')
-    fires=labels.drop_duplicates()
-    print(len(fires))
-    weather_list, pic_list=[],[]
-    labels_list=[]
-    for _, fire in fires.iterrows():
-        print(fire)
-        sentence, labels = location2sentence(fires, fire) # sentence shape [(17, 9, 190, 190, 13), (17, 9, 24, 14)] labels shape (17, 9)
-        pic_list.append(sentence[0])
-        weather_list.append(sentence[1])
-        labels_list.append(labels)
-    print("search done.")
-    pic_list= tf.convert_to_tensor(pic_list, dtype='float32')
-    weather_list= tf.convert_to_tensor(weather_list, dtype='float32')
-    labels_list=tf.convert_to_tensor(labels_list, dtype='float32')
-    labels_list=tf.expand_dims(labels_list,axis=-1)
-    # labels_list=tf.convert_to_tensor(labels_list)
-    print("transfer done.")
-    model.summary()
+    fires = labels.drop_duplicates()
+    
+    # 初始化数据生成器
+    training_generator = FireDataGenerator(fires, batch_size=32, shuffle=True)
 
-    print(pic_list.shape)
-    print(weather_list.shape)
-    print(labels_list.shape)
-    model.fit(x=[pic_list,weather_list], y=labels_list, batch_size=2, epochs=10, validation_split=0.2,verbose=1)
+    model.fit(x=training_generator, epochs=10, verbose=1)
+    
     print("train done.")
-    loss, accuracy = model.evaluate(x=[pic_list,weather_list], y=labels_list)
-    print(f'Validation Loss: {loss:.4f}, Validation Accuracy: {accuracy:.4f}')
     model.save('model.h5')
     print("save done.")
 

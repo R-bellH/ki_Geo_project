@@ -5,28 +5,36 @@ from tifffile import imread
 import numpy as np
 import pandas as pd
 from datetime import datetime, timedelta
+import os
 
 w_features=14
 hours=24
 width=190
 hight=190
 bands=13
+
+global c
+global z
+c,z=0,0
+
 def data2tensor(location, date):
     """
     take location (latitude, longitude) and a date "yy-mm-dd" and return a tensor vector representations
     :returns: bands tensor (hXwXbands) (190X190X13), weather tensor (hourX(temp, 10m_speed,100m_speed) (24X14)
     """
+    global z
+    global c
     try:
         tensor_bands = read_sentinel_tiff(location, date)
+        c+=1
     except Exception as e:
-        print(e)
         print("couldn't find picture")
         tensor_bands = tf.convert_to_tensor(np.zeros((width,hight,bands)), dtype='float32')
+        z+=1
     try:
         tensor_weather = read_weather_data(location, date)
     except Exception as e:
         print("couldn't find weather")
-        print(e)
         tensor_weather=tf.convert_to_tensor(np.zeros((hours,w_features)), dtype='float32')
 
     # print(tensor_bands)
@@ -37,16 +45,16 @@ def data2tensor(location, date):
 
 
 def read_sentinel_tiff(location, date):
-    path2sentinel = f"data_mining/sentinel_images/{location['latitude']},{location['longitude']}"
-
-    bands = imread(path2sentinel + f"/{date}.tiff")
+    path2sentinel = fr"\ki_Geo_project\data_mining\sentinel_images\{location['latitude']},{location['longitude']}"
+    path = os.path.abspath(os.getcwd()) + path2sentinel
+    bands = imread(path + f"\{date}.tiff")
     return tf.convert_to_tensor(bands, dtype='float32')
 
 
 def read_weather_data(location, date):
-    # path2weather = f"data_mining/weather_data/{location['latitude']},{location['longitude']}.csv"
-    path2weather = f"data_mining/weather_data/{location['latitude']},{location['longitude']}.csv"
-    weather = pd.read_csv(path2weather, index_col=0)
+    path2weather = fr"\ki_Geo_project\data_mining\weather_data\{location['latitude']},{location['longitude']}.csv"
+    path = os.path.abspath(os.getcwd()) + path2weather
+    weather = pd.read_csv(path, index_col=0)
     weather.drop_duplicates(inplace=True)
     weather["day"] = weather["date"].map(lambda x: x.split(" ")[0])
     weather_date = weather[weather["day"] == date]
@@ -58,7 +66,11 @@ def read_weather_data(location, date):
 
 
 def location2sentence(fires, location):
+    global z
+    global c
     print(f"current location: {location}")
+    #print(fires['latitude'])
+    #print(location['latitude'].values)
     fire = fires[fires['latitude'] == location['latitude']]
     fire = fire[fire['longitude'] == location['longitude']]
     day_date = datetime.strptime(location['date'], "%Y-%m-%d")
@@ -72,17 +84,19 @@ def location2sentence(fires, location):
         labels.append(1 if date in fire['date'].values else 0)
     sentence_bands = tf.stack(tensor_bands_list)
     sentence_weather = tf.stack(tensor_weather_list)
+    print("num find or not")
+    print(c,z)
     return [sentence_bands, sentence_weather], labels
 
 
 if __name__ == "__main__":
-    # fires = pd.read_csv("data_mining/fire_news.csv")
+    # fires = pd.read_csv("data_mining\fire_news.csv")
     # fires["acq_date"] = fires["acq_date"].map(lambda x: x.split("T")[0])
     # location = {"latitude": 8.635563034028015, "longitude": 39.95169788042532}
     # location2sentence(fires, location)
     # test
-    # path2sentinel=f"data_mining/sentinel_images/40.50196,17.21493/"
-    # path2weather = f"data_mining/weather_data/40.50196,17.21493.csv"
+    # path2sentinel=f"data_mining\sentinel_images\40.50196,17.21493\"
+    # path2weather = f"data_mining\weather_data\40.50196,17.21493.csv"
     # weather = pd.read_csv(path2weather,index_col=0)
     # weather["day"]=weather["date"].map(lambda x: x.split(" ")[0])
     # weather_date = weather[weather["day"] == "2024-05-06"]
