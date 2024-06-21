@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 
+import pandas as pd
 from keras.models import Model
 from keras.layers import LSTM, Dense, Input, TimeDistributed, Flatten, Concatenate, Reshape, Masking
 
@@ -80,13 +81,25 @@ def make_all_dates():
     fire_weather = pd.DataFrame(rows, columns=["latitude", "longitude", "date"])
     return fire_weather
 
-row={
-        "latitude": '36.68',
-        "longitude": '14.96',
-        "date": '2023-06-22',
-    }
-# sentence=location2sentence(make_all_dates(),row)
-# print(sentence)
-# print(sentence[0].shape)
-# print(sentence[1].shape)
-#
+def run():
+    fires = pd.read_csv("./data_mining/fire_labels/fire_labels_final.csv")
+    fires['latitude'] = fires['latitude'].astype(str)
+    fires['longitude'] = fires['longitude'].astype(str)
+    sentences_list=[]
+    labels_list=[]
+    for fire in fires:
+        sentence, labels = location2sentence(fires, fire)
+        sentences_list.append(sentence)
+        labels_list.append(labels)
+
+    model.fit(x=sentences_list, y=labels_list, batch_size=8, epochs=10, validation_split=0.2)
+    loss, accuracy = model.evaluate(x=sentences_list, y=labels_list)
+    print(f'Validation Loss: {loss:.4f}, Validation Accuracy: {accuracy:.4f}')
+    model.save('model.h5')
+
+if __name__=="__main__":
+    run()
+# fires['date'] = fires['date'].astype(str)
+
+# breakpoint()
+
