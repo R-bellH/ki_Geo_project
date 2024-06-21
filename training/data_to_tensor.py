@@ -64,15 +64,15 @@ def location2sentence(fires, location):
     day_date = datetime.strptime(location['date'], "%Y-%m-%d")
     dates = [(day_date + timedelta(days=i)).strftime("%Y-%m-%d") for i in
              range(-7, 2)]  # sample every week for a month around that date
-    tensor_bands_list, tensor_weather_list=[], []
+    tensor_bands_list, tensor_weather_list, labels=[], [], []
     for date in dates:
         tensor_bands, tensor_weather = data2tensor(location,date)
         tensor_bands_list.append(tensor_bands)
         tensor_weather_list.append(tensor_weather)
-
+        labels.append(1 if date in fire['date'].values else 0)
     sentence_bands = tf.stack(tensor_bands_list)
     sentence_weather = tf.stack(tensor_weather_list)
-    return sentence_bands, sentence_weather
+    return [sentence_bands, sentence_weather], labels
 
 
 if __name__ == "__main__":
@@ -87,8 +87,8 @@ if __name__ == "__main__":
     # weather["day"]=weather["date"].map(lambda x: x.split(" ")[0])
     # weather_date = weather[weather["day"] == "2024-05-06"]
     # weather_date.drop(columns=['date', 'day'], inplace=True)
-    location = {"latitude": 36.96, "longitude": 14.53}
-    data=data2tensor(location,"2023-08-17")
+    location = {"latitude": '36.96', "longitude": '14.53'}
+    data = data2tensor(location,"2023-08-17")
     # tensor_weather=tf.convert_to_tensor(weather_date)
     # print(tensor_weather)
     # print(tensor_weather.shape)
