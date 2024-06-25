@@ -28,13 +28,13 @@ def data2tensor(location, date):
         tensor_bands = read_sentinel_tiff(location, date)
         c+=1
     except Exception as e:
-        print("couldn't find picture")
+        #print("couldn't find picture")
         tensor_bands = tf.convert_to_tensor(np.zeros((width,hight,bands)), dtype='float32')
         z+=1
     try:
         tensor_weather = read_weather_data(location, date)
     except Exception as e:
-        print("couldn't find weather")
+        #print("couldn't find weather")
         tensor_weather=tf.convert_to_tensor(np.zeros((hours,w_features)), dtype='float32')
 
     # print(tensor_bands)
@@ -44,7 +44,7 @@ def data2tensor(location, date):
     return tensor_bands, tensor_weather
 
 
-def read_sentinel_tiff(location, date,):
+def read_sentinel_tiff(location, date):
     path2sentinel = fr"\data_mining\sentinel_images\{location['latitude']},{location['longitude']}"
     path = os.path.abspath(os.getcwd()) + path2sentinel
     bands = imread(path + rf"\{date}.tiff")
@@ -71,8 +71,6 @@ def location2sentence(fires, location):
     global z
     global c
     print(f"current location: {location}")
-    # fire = fires[fires['latitude'] == location['latitude']]
-    # fire = fire[fire['longitude'] == location['longitude']]
     day_date = datetime.strptime(location['date'], "%Y-%m-%d")
     dates = [(day_date + timedelta(days=i)).strftime("%Y-%m-%d") for i in
              range(-8, 0)]  # sample every day for a week before
@@ -85,7 +83,7 @@ def location2sentence(fires, location):
     sentence_weather = tf.stack(tensor_weather_list)
     print("num find or not")
     print(c,z)
-    return [sentence_bands, sentence_weather]
+    return sentence_bands, sentence_weather
 
 
 if __name__ == "__main__":
