@@ -44,21 +44,23 @@ def data2tensor(location, date):
     return tensor_bands, tensor_weather
 
 
-def read_sentinel_tiff(location, date):
-    path2sentinel = fr"\ki_Geo_project\data_mining\sentinel_images\{location['latitude']},{location['longitude']}"
+def read_sentinel_tiff(location, date,):
+    path2sentinel = fr"\data_mining\sentinel_images\{location['latitude']},{location['longitude']}"
     path = os.path.abspath(os.getcwd()) + path2sentinel
-    bands = imread(path + f"\{date}.tiff")
+    bands = imread(path + rf"\{date}.tiff")
     return tf.convert_to_tensor(bands, dtype='float32')
 
 
 def read_weather_data(location, date):
-    path2weather = fr"\ki_Geo_project\data_mining\weather_data\{location['latitude']},{location['longitude']}.csv"
+    day_date = datetime.strptime(date, "%Y-%m-%d")
+    dates = [(day_date + timedelta(days=i)).strftime("%Y-%m-%d") for i in range(-8, 0)]
+    path2weather = fr"\data_mining\weather_data\{location['latitude']},{location['longitude']}.csv"
     path = os.path.abspath(os.getcwd()) + path2weather
     weather = pd.read_csv(path, index_col=0)
     weather.drop_duplicates(inplace=True)
     weather["day"] = weather["date"].map(lambda x: x.split(" ")[0])
-    weather_date = weather[weather["day"] == date]
-    weather_date.drop(columns=['date', 'day'], inplace=True)
+    weather_date = weather[weather["day"].isin(dates)]
+    weather_date.drop(columns=['date'], inplace=True)
     weather_date = weather_date.astype(float)
     if weather_date.empty:
         raise Exception(f"couldn't find data for {date}, at : {location}")
@@ -69,24 +71,21 @@ def location2sentence(fires, location):
     global z
     global c
     print(f"current location: {location}")
-    #print(fires['latitude'])
-    #print(location['latitude'].values)
-    fire = fires[fires['latitude'] == location['latitude']]
-    fire = fire[fire['longitude'] == location['longitude']]
+    # fire = fires[fires['latitude'] == location['latitude']]
+    # fire = fire[fire['longitude'] == location['longitude']]
     day_date = datetime.strptime(location['date'], "%Y-%m-%d")
     dates = [(day_date + timedelta(days=i)).strftime("%Y-%m-%d") for i in
-             range(-7, 2)]  # sample every week for a month around that date
+             range(-8, 0)]  # sample every day for a week before
     tensor_bands_list, tensor_weather_list, labels=[], [], []
     for date in dates:
         tensor_bands, tensor_weather = data2tensor(location,date)
         tensor_bands_list.append(tensor_bands)
         tensor_weather_list.append(tensor_weather)
-        labels.append(1 if date in fire['date'].values else 0)
     sentence_bands = tf.stack(tensor_bands_list)
     sentence_weather = tf.stack(tensor_weather_list)
     print("num find or not")
     print(c,z)
-    return [sentence_bands, sentence_weather], labels
+    return [sentence_bands, sentence_weather]
 
 
 if __name__ == "__main__":
