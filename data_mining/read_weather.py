@@ -5,7 +5,7 @@ import openmeteo_requests
 import requests_cache
 import pandas as pd
 from retry_requests import retry
-
+from datetime import datetime
 
 # Setup the Open-Meteo API client with cache and retry on error
 def start_openmeteo_session():
@@ -17,7 +17,7 @@ def start_openmeteo_session():
 
 # Make sure all required weather variables are listed here
 # The order of variables in hourly or daily is important to assign them correctly below
-def get_weather(openmeteo_session, coordinates, time_interval, verbose=False, save=False):
+def get_weather(openmeteo_session, coordinates, time_interval, verbose=False, save=False,folder="weather_data"):
     url = "https://archive-api.open-meteo.com/v1/archive"
     params = {
         "latitude": coordinates['latitude'],
@@ -55,6 +55,7 @@ def get_weather(openmeteo_session, coordinates, time_interval, verbose=False, sa
     hourly_soil_moisture_7_to_28cm = hourly.Variables(11).ValuesAsNumpy()
     hourly_soil_moisture_28_to_100cm = hourly.Variables(12).ValuesAsNumpy()
     hourly_soil_moisture_100_to_255cm = hourly.Variables(13).ValuesAsNumpy()
+    day_of_year = datetime.strptime(time_interval[1], "%Y-%m-%d").timetuple().tm_yday
 
     hourly_data = {"date": pd.date_range(
         start=pd.to_datetime(hourly.Time(), unit="s", utc=True),
@@ -76,12 +77,12 @@ def get_weather(openmeteo_session, coordinates, time_interval, verbose=False, sa
     hourly_data["soil_moisture_7_to_28cm"] = hourly_soil_moisture_7_to_28cm
     hourly_data["soil_moisture_28_to_100cm"] = hourly_soil_moisture_28_to_100cm
     hourly_data["soil_moisture_100_to_255cm"] = hourly_soil_moisture_100_to_255cm
+    hourly_data["day_of_year"] = day_of_year
 
     hourly_dataframe = pd.DataFrame(data=hourly_data)
     if verbose:
         print(hourly_dataframe)
     if save:
-        folder = f"weather_data"
         os.makedirs(folder, exist_ok=True)
         hourly_dataframe.to_csv(folder+f"/{coordinates['latitude']},{coordinates['longitude']}.csv",mode='a')
     return hourly_dataframe
@@ -89,8 +90,8 @@ def get_weather(openmeteo_session, coordinates, time_interval, verbose=False, sa
 
 if __name__=="__main__":
     coordinates = {
-        "latitude": 40.50196,
-        "longitude": 17.21493,
+        "latitude": 40.50,
+        "longitude": 17.21,
     }
     time_interval=("1960-05-12","1960-05-13")
     session=start_openmeteo_session()
