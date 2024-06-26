@@ -9,7 +9,7 @@ import os
 
 w_features=15
 days=9
-hours=24*days
+hours=days*24
 width=190
 hight=190
 bands=13
@@ -21,7 +21,7 @@ c,z=0,0
 def data2tensor(location, date):
     """
     take location (latitude, longitude) and a date "yy-mm-dd" and return a tensor vector representations
-    :returns: bands tensor (hXwXbands) (190X190X13), weather tensor (hourX(temp, 10m_speed,100m_speed) (24X14)
+    :returns: bands tensor (hXwXbands) (190X190X13), weather tensor (hourX(temp, 10m_speed,100m_speed) (9*24X15)
     """
     global z
     global c

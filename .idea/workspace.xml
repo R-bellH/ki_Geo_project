@@ -4,17 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="44b15f9d-759f-49b0-9a71-48ca12d893a5" name="Changes" comment="single point future prediction pt.2">
-      <change afterPath="$PROJECT_DIR$/data_mining/remove_small_imagesets.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_mining/fire_news/fire_news_clean.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/data_mining/fire_news/fire_news_clean.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_mining/get_sat2_images.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_mining/get_sat2_images.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_mining/main.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/data_mining/main.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_mining/nagtive_sampling.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_mining/nagtive_sampling.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_mining/weather.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/data_mining/weather.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/main.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/training/data_to_tensor.py" beforeDir="false" afterPath="$PROJECT_DIR$/training/data_to_tensor.py" afterDir="false" />
-    </list>
+    <list default="true" id="44b15f9d-759f-49b0-9a71-48ca12d893a5" name="Changes" comment="fixes to data_to_tensor.py to fit new data format" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -295,7 +285,7 @@
       <workItem from="1718530006165" duration="10381000" />
       <workItem from="1718541474446" duration="38258000" />
       <workItem from="1718969786596" duration="43998000" />
-      <workItem from="1719384715810" duration="6614000" />
+      <workItem from="1719384715810" duration="6912000" />
     </task>
     <task id="LOCAL-00001" summary="INNIT">
       <option name="closed" value="true" />
@@ -481,7 +471,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719327652843</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="fixes to data_to_tensor.py to fit new data format">
+      <option name="closed" value="true" />
+      <created>1719396987298</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1719396987298</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -505,7 +503,8 @@
     <MESSAGE value="model fetig, use test_model_dg.py&#10;allow us to use the full dataset without OOM" />
     <MESSAGE value="major changes, single point prediction. part1" />
     <MESSAGE value="single point future prediction pt.2" />
-    <option name="LAST_COMMIT_MESSAGE" value="single point future prediction pt.2" />
+    <MESSAGE value="fixes to data_to_tensor.py to fit new data format" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixes to data_to_tensor.py to fit new data format" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ki_Geo_project$del.coverage" NAME="del Coverage Results" MODIFIED="1719299029448" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/data_mining" />
