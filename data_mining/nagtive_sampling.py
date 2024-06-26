@@ -133,7 +133,7 @@ def main():
     # collect_images(df, main_folder, client_id, client_secret)
 
     entries = os.listdir(main_folder)
-    rows = process_images(main_folder, entries,process=True)
+    rows = process_images(main_folder, entries,process=False)
 
     no_fire_weather = pd.DataFrame(rows, columns=["latitude", "longitude", "date"])
     gather_weather(no_fire_weather, "no_fire_weather")

@@ -113,7 +113,6 @@ def call_sentinel(client_id, client_secret, coordinates, time_interval, save=Fal
             f"Picture not found for location {coordinates['latitude']}, {coordinates['longitude']} on {time_interval[1]}")
         return False
     elif save:
-        folder = f"{folder}/{coordinates['latitude']},{coordinates['longitude']}"
         os.makedirs(folder, exist_ok=True)
         # save output as TIFF
         imwrite(folder + f"/{time_interval[1]}.tiff", image)

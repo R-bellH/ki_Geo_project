@@ -4,17 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="44b15f9d-759f-49b0-9a71-48ca12d893a5" name="Changes" comment="model fetig, use test_model_dg.py&#10;allow us to use the full dataset without OOM">
-      <change afterPath="$PROJECT_DIR$/data_mining/nagtive_sampling.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main.ipynb" afterDir="false" />
+    <list default="true" id="44b15f9d-759f-49b0-9a71-48ca12d893a5" name="Changes" comment="single point future prediction pt.2">
+      <change afterPath="$PROJECT_DIR$/data_mining/remove_small_imagesets.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_mining/fire_labels/fire_labels.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/data_mining/fire_labels/fire_labels.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_mining/fire_news/firenews.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/data_mining/fire_news/firenews.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_mining/fire_news/fire_news_clean.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/data_mining/fire_news/fire_news_clean.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data_mining/get_sat2_images.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_mining/get_sat2_images.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data_mining/main.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/data_mining/main.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_mining/read_weather.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_mining/read_weather.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_mining/nagtive_sampling.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_mining/nagtive_sampling.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_mining/weather.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/data_mining/weather.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/main.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/training/data_to_tensor.py" beforeDir="false" afterPath="$PROJECT_DIR$/training/data_to_tensor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/training/test_model_dg.py" beforeDir="false" afterPath="$PROJECT_DIR$/training/test_model_dg.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,8 +23,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="Jupyter Notebook" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -59,6 +58,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Python.data_to_tensor (1).executor": "Run",
     "Python.del (1).executor": "Run",
     "Python.del.executor": "Run",
     "Python.get_sat2_images.executor": "Run",
@@ -84,12 +84,37 @@
       <recent name="C:\Users\just let me in\Desktop\technion\semester_8_student_exchange\CLM KI&amp;Geoinfo\ki_Geo_project" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\just let me in\Desktop\technion\semester_8_student_exchange\CLM KI&amp;Geoinfo\ki_Geo_project\data_mining\sentinel_images\41.53,14.78" />
+      <recent name="C:\Users\just let me in\Desktop\technion\semester_8_student_exchange\CLM KI&amp;Geoinfo\ki_Geo_project\data_mining\sentinel_images\45.26,12.04" />
+      <recent name="C:\Users\just let me in\Desktop\technion\semester_8_student_exchange\CLM KI&amp;Geoinfo\ki_Geo_project\data_mining\sentinel_images\45.37,10.34" />
       <recent name="C:\Users\just let me in\Desktop\technion\semester_8_student_exchange\CLM KI&amp;Geoinfo\ki_Geo_project\data_mining" />
       <recent name="C:\Users\just let me in\Desktop\technion\semester_8_student_exchange\CLM KI&amp;Geoinfo\ki_Geo_project\training" />
-      <recent name="C:\Users\just let me in\Desktop\technion\semester_8_student_exchange\CLM KI&amp;Geoinfo\ki_Geo_project" />
     </key>
   </component>
   <component name="RunManager" selected="Python.del (1)">
+    <configuration name="data_to_tensor (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="ki_Geo" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/training" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/training/data_to_tensor.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="data_to_tensor" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="ki_Geo" />
       <option name="ENV_FILES" value="" />
@@ -206,29 +231,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="read_firenews" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="ki_Geo" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/data_mining" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/data_mining/read_firenews.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="read_weather" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="ki_Geo" />
       <option name="ENV_FILES" value="" />
@@ -254,19 +256,19 @@
     </configuration>
     <list>
       <item itemvalue="Python.data_to_tensor" />
+      <item itemvalue="Python.data_to_tensor (1)" />
       <item itemvalue="Python.nagtive_sampling" />
       <item itemvalue="Python.del (1)" />
       <item itemvalue="Python.del" />
-      <item itemvalue="Python.read_firenews" />
       <item itemvalue="Python.read_weather" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.del (1)" />
         <item itemvalue="Python.nagtive_sampling" />
+        <item itemvalue="Python.data_to_tensor (1)" />
         <item itemvalue="Python.del" />
         <item itemvalue="Python.read_weather" />
-        <item itemvalue="Python.read_firenews" />
       </list>
     </recent_temporary>
   </component>
@@ -292,7 +294,8 @@
       <workItem from="1718174034743" duration="43000" />
       <workItem from="1718530006165" duration="10381000" />
       <workItem from="1718541474446" duration="38258000" />
-      <workItem from="1718969786596" duration="36103000" />
+      <workItem from="1718969786596" duration="43998000" />
+      <workItem from="1719384715810" duration="6614000" />
     </task>
     <task id="LOCAL-00001" summary="INNIT">
       <option name="closed" value="true" />
@@ -462,7 +465,23 @@
       <option name="project" value="LOCAL" />
       <updated>1718983252031</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="major changes, single point prediction. part1">
+      <option name="closed" value="true" />
+      <created>1719327199466</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1719327199466</updated>
+    </task>
+    <task id="LOCAL-00023" summary="single point future prediction pt.2">
+      <option name="closed" value="true" />
+      <created>1719327652843</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1719327652843</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -484,14 +503,17 @@
     <MESSAGE value="data cleaning - fertig,&#10;model" />
     <MESSAGE value="make run file to build prediction model" />
     <MESSAGE value="model fetig, use test_model_dg.py&#10;allow us to use the full dataset without OOM" />
-    <option name="LAST_COMMIT_MESSAGE" value="model fetig, use test_model_dg.py&#10;allow us to use the full dataset without OOM" />
+    <MESSAGE value="major changes, single point prediction. part1" />
+    <MESSAGE value="single point future prediction pt.2" />
+    <option name="LAST_COMMIT_MESSAGE" value="single point future prediction pt.2" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ki_Geo_project$del.coverage" NAME="del Coverage Results" MODIFIED="1719299029448" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/data_mining" />
-    <SUITE FILE_PATH="coverage/ki_Geo_project$del__1_.coverage" NAME="del (1) Coverage Results" MODIFIED="1719323141148" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/training" />
+    <SUITE FILE_PATH="coverage/ki_Geo_project$del__1_.coverage" NAME="del (1) Coverage Results" MODIFIED="1719396280305" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/training" />
     <SUITE FILE_PATH="coverage/ki_Geo_project$idk.coverage" NAME="idk Coverage Results" MODIFIED="1718538634044" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:\Users\just let me in\Desktop\technion\semester_8_student_exchange\CLM KI&amp;Geoinfo\ki_Geo_project" />
-    <SUITE FILE_PATH="coverage/ki_Geo_project$nagtive_sampling.coverage" NAME="nagtive_sampling Coverage Results" MODIFIED="1719301249147" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/data_mining" />
+    <SUITE FILE_PATH="coverage/ki_Geo_project$nagtive_sampling.coverage" NAME="nagtive_sampling Coverage Results" MODIFIED="1719393505629" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/data_mining" />
     <SUITE FILE_PATH="coverage/ki_Geo_project$read_weather.coverage" NAME="read_weather Coverage Results" MODIFIED="1718116631040" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/data_mining" />
+    <SUITE FILE_PATH="coverage/ki_Geo_project$data_to_tensor__1_.coverage" NAME="data_to_tensor (1) Coverage Results" MODIFIED="1719392158973" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/training" />
     <SUITE FILE_PATH="coverage/ki_Geo_project$get_sat2_images.coverage" NAME="get_sat2_images Coverage Results" MODIFIED="1718112269880" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/data_mining" />
     <SUITE FILE_PATH="coverage/ki_Geo_project$read_firenews.coverage" NAME="read_firenews Coverage Results" MODIFIED="1718114688995" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/data_mining" />
   </component>
