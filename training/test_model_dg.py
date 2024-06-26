@@ -138,6 +138,7 @@ def data_preprocess():
     fires = pd.merge(fire_pictures, fires, on=['latitude', 'longitude', 'date'], how='inner')
     fires = fires.drop_duplicates()
     fires['label'] = 1
+
     # negative data
     no_fire_path = os.path.abspath(os.getcwd()) + r"\data_mining\no_fire_probably.csv"
     no_fires = pd.read_csv(no_fire_path)
@@ -151,6 +152,7 @@ def data_preprocess():
 
     data = pd.concat([fires, no_fires], ignore_index=True)
     data = data.sample(frac=1)
+    breakpoint()
     return data
 
 
@@ -226,5 +228,6 @@ def run():
 
 if __name__ == "__main__":
     # breakpoint()
-    run()
+    data_preprocess()
+    # run()
 # fires['date'] = fires['date'].astype(str)

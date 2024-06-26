@@ -122,8 +122,8 @@ def main():
     end_date = "2024-06-25"
     num_samples = 500
     main_folder = "sentinel_images_no_fire"
-    client_id = '4d093505-d867-4ae4-90b0-468eb78dd9af'
-    client_secret = 'UHSroMy3xUHqh0SakSXrPvCejglb2eyH'
+    client_id = 'sh-4f90983d-bc78-4cb1-9323-b9035a0bf340'
+    client_secret = 'Zvmj4K6tpi9gEHuh81tY05BkCnYiPm5c'
 
     # polygons = [north, south]
     # df = generate_random_data(num_samples, start_date, end_date, polygons)
