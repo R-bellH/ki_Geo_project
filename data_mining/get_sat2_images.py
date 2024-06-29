@@ -99,7 +99,13 @@ def request_all_bands_sentinel(coordinates, time_interval, config):
     image = request.get_data()[0]
     return image
 
-def call_sentinel(client_id, client_secret, coordinates, time_interval, save=False):
+def call_sentinel(client_id, client_secret, coordinates, time_interval, save=False,folder="sentinel_images"):
+    folder = f"{folder}/{coordinates['latitude']},{coordinates['longitude']}"
+    os.makedirs(folder, exist_ok=True)
+    if os.path.exists(folder + f"/{time_interval[1]}.tiff"):
+        print("photo already made")
+        return True
+
     config = get_config(client_id, client_secret)
     image = request_all_bands_sentinel(coordinates, time_interval, config)
     if image.mean() == 0:
@@ -107,7 +113,6 @@ def call_sentinel(client_id, client_secret, coordinates, time_interval, save=Fal
             f"Picture not found for location {coordinates['latitude']}, {coordinates['longitude']} on {time_interval[1]}")
         return False
     elif save:
-        folder = f"sentinel_images/{coordinates['latitude']},{coordinates['longitude']}"
         os.makedirs(folder, exist_ok=True)
         # save output as TIFF
         imwrite(folder + f"/{time_interval[1]}.tiff", image)
