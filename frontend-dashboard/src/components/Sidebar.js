@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import italyGeoJSON from "./../italy-polygon.json";
 import * as turf from "@turf/turf";
 
-const Sidebar = ({ onCoordinateSubmit, error }) => {
+const Sidebar = ({ onCoordinateSubmit,  errorMessage, resetErrorMessage, successMessage}) => {
   const [lat, setLat] = useState("");
   const [lng, setLng] = useState("");
   const [latError, setLatError] = useState(false);
   const [lngError, setLngError] = useState(false);
   const [geoJSONError, setGeoJSONError] = useState(false);
+  const [loading, setLoading] = useState(false); // for loading indicator
 
   useEffect(() => {
     if (!italyGeoJSON || !italyGeoJSON.features) {
@@ -16,8 +17,10 @@ const Sidebar = ({ onCoordinateSubmit, error }) => {
     }
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    resetErrorMessage();
 
     const latValue = parseFloat(lat);
     const lngValue = parseFloat(lng);
@@ -40,12 +43,18 @@ const Sidebar = ({ onCoordinateSubmit, error }) => {
     setLngError(!isWithinItaly ? "Coordinates must be within Italy" : "");
 
     if (latIsNumber && lngIsNumber && isWithinItaly) {
-      onCoordinateSubmit(lat, lng);
-      setLat("");
-      setLng("");
+      setLoading(true); // Start loading indicator
+      try {
+        await onCoordinateSubmit(lat, lng);
+        setLat("");
+        setLng("");
+      } catch (error) {
+        console.error("Error submitting coordinates:", error);
+      } finally {
+        setLoading(false); // Stop loading indicator regardless of success or error
+      }
     }
-  };
-
+  }
   // Function to check if coordinates are within Italy
   function coordinatesWithinItaly([lat, lng]) {
     if (geoJSONError) {
@@ -103,9 +112,19 @@ const Sidebar = ({ onCoordinateSubmit, error }) => {
           </label>
         </div>
         <button type="submit" className="btn btn-primary btn-lg btn-block mt-3">
-          Submit
+        {loading ? <span className="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> : "Submit"}
         </button>
       </form>
+      {errorMessage && (
+  <div className="alert alert-danger mt-3" role="alert" style={{ marginTop: '10%' }}>
+    {errorMessage}
+  </div>
+)}
+{successMessage && (
+  <p className="alert alert-success" style={{ marginTop: '10%' }}>
+    {successMessage}
+  </p>
+)}
     </div>
   );
 };

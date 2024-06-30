@@ -19,28 +19,34 @@ def get_data_from_web():
     # TODO: write code to take the info from the website and get it into these paramters
 
     # right now its just an example
-    latitude = 36.68
-    longitude = 14.96
-    date = "2024-06-23"
-
+    #latitude = 36.96
+    latitude = 37
+    #longitude = 14.53
+    longitude = 14.5
+    #date = "2023-08-22"
+    date = "2024-06-30"
 
     location = {"latitude": latitude, "longitude": longitude, "date": date}
     return location
 
+
 def get_images(location, folder):
-    with open('.\config') as f:
+    with open('../config') as f:
         contents = f.readlines()[0].split(" ")
         client_id = contents[0]
         client_secret = contents[1]
     day_date = datetime.strptime(location['date'], "%Y-%m-%d")
-    dates = [(day_date + timedelta(days=i)).strftime("%Y-%m-%d") for i in range(-9, 0)]
-    success=0
+    dates = [(day_date + timedelta(days=i)).strftime("%Y-%m-%d")
+             for i in range(-9, 0)]
+    success = 0
     for date in dates:
         day_date = datetime.strptime(date, "%Y-%m-%d")
         yesterday = (day_date - timedelta(days=1)).strftime("%Y-%m-%d")
         time_interval = (yesterday, date)
-        success += call_sentinel(client_id, client_secret, location, time_interval, save=True, folder="new_data")
-    return True if success >=5 else False
+        success += call_sentinel(client_id, client_secret,
+                                 location, time_interval, save=True, folder=folder)
+    return True if success >= 5 else False
+
 
 def resize_image(input_data, target_size):
     height, width, channels = input_data.shape
@@ -53,6 +59,7 @@ def resize_image(input_data, target_size):
             w_orig = int(w / scale_width)
             resized_data[h, w, :] = input_data[h_orig, w_orig, :]
     return resized_data
+
 
 def process_images(main_folder, entries, process=False):
     if process:
@@ -71,15 +78,19 @@ def process_images(main_folder, entries, process=False):
                     resized_image = resize_image(image, (190, 190))
                     imwrite(file, resized_image)
     return rows
+
+
 def try_get_weather(openmeteo_session, row, time_interval, folder, verbose=False):
     try:
-        weather.get_weather(openmeteo_session, row, time_interval, verbose, save=True, folder=folder)
+        weather.get_weather(openmeteo_session, row,
+                            time_interval, verbose, save=True, folder=folder)
     except OpenMeteoRequestsError as e:
         print(e)
         print("waiting")
         time.sleep(61)
         print("continued")
         try_get_weather(openmeteo_session, row, time_interval, folder, verbose)
+
 
 def gather_weather(no_fire_weather, folder):
     openmeteo_session = weather.start_openmeteo_session()
@@ -90,10 +101,12 @@ def gather_weather(no_fire_weather, folder):
         week_old = (day_date - timedelta(days=9)).strftime("%Y-%m-%d")
         time_interval = (week_old, day)
         try_get_weather(openmeteo_session, row, time_interval, folder)
+
+
 def main(location):
-    images_folder="new_data_images"
-    weather_folder="new_data_weather"
-    enough_images=get_images(location,images_folder)
+    images_folder = "new_data_images"
+    weather_folder = "new_data_weather"
+    enough_images = get_images(location, images_folder)
     if not enough_images:
         print("not enough images for analysis for the required location, please try again with another location")
         return
@@ -101,19 +114,24 @@ def main(location):
     location["longitude"] = str(location["longitude"])
 
     entries = os.listdir(images_folder)
-    data = process_images(images_folder, entries,process=True)
+    data = process_images(images_folder, entries, process=True)
     data = pd.DataFrame(data, columns=["latitude", "longitude", "date"])
     gather_weather(data, weather_folder)
 
     # load the model
-    path = os.path.abspath(os.getcwd()) + r"\model.h5"
+    path = os.path.abspath(os.getcwd()) + r"/../model.h5"
     model = tf.keras.models.load_model(path)
 
-    location_tensor=location2sentence("_",location)
+    location_tensor = location2sentence("_", location)
+    location_tensor = [tf.expand_dims(tensor, axis=0) for tensor in location_tensor]
+
     # predict
     prediction = model.predict(location_tensor)
-
+    print(prediction)
     return prediction
 
+
 if __name__ == '__main__':
-    # main(get_data_from_web())
+    print("start")
+    main(get_data_from_web())
+    print("finished")

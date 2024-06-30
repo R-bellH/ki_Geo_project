@@ -4,8 +4,12 @@ Upon receiving the coordinates, the API processes them to determine the wildfire
 The endpoint then returns the coordinates along with the corresponding wildfire risk level.
 '''
 
+from os import wait
+from time import time
+from datetime import date
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+from main import main
 
 app = Flask(__name__)
 
@@ -27,12 +31,29 @@ def validate_coordinates(lat, lon):
 
 def get_fire_coordinates(lat, lon):
     new_lat = lat
-    # to be replaced by call to model
     new_lon = lon
+
+    today = date.today()
+    today_str = today.strftime("%Y-%m-%d")
+
+    location = {"latitude": lat, "longitude": lon, "date": today_str}
+    print("before prediction")
+    prediction_result = main(location) #main(location) returns a list of lists
+    if prediction_result is None:
+        return None
+
+    prediction = prediction_result[0][0] * 100 if prediction_result[0] else None
+
+    if prediction is None:
+        return None
+
+
+
 
     new_coordinates = {
         'latitude': new_lat,
-        'longitude': new_lon
+        'longitude': new_lon,
+        'confidence': round(prediction,2)
     }
     return new_coordinates
 
@@ -54,7 +75,7 @@ def receive_coordinates():
 
     new_coordinates = get_fire_coordinates(lat, lon)
     if new_coordinates is None:
-        return jsonify({"error": "No fire coordinates found."}), 404
+        return jsonify({"error": "Not enough data to make a prediction."}), 404
 
     return jsonify(new_coordinates), 200
 
