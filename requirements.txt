@@ -1,0 +1,13 @@
+flask
+flask-cors
+tensorflow
+numpy
+pandas
+tifffile
+openmeteo-requests
+keras
+sentinelhub
+matplotlib
+retry-requests
+requests
+requests-cache
