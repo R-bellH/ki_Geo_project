@@ -1,0 +1,6 @@
+__pycache__/
+.conda/
+.idea/
+.env
+.venv
+.vscode

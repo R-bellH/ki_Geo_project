@@ -34,13 +34,13 @@ def data2tensor(location, date):
         z+=1
     try:
         tensor_weather = read_weather_data(location, date)
-        print("weather shape ", tensor_weather.shape)
+        # print("weather shape ", tensor_weather.shape)
     except Exception as e:
         #print("couldn't find weather")
         tensor_weather=tf.convert_to_tensor(np.zeros((hours,w_features)), dtype='float32')
 
-    # print(tensor_bands)
-    # print(tensor_weather)
+    #print(tensor_bands.shape)
+    #print(tensor_weather.shape)
     # tensor_bands = tensor_bands.astype('float32')
     # tensor_weather = tensor_weather.astype('float32')
     return tensor_bands, tensor_weather
@@ -67,13 +67,17 @@ def read_weather_data(location, date):
     weather_date = weather_date.astype(float)
     if weather_date.empty:
         raise Exception(f"couldn't find data for {date}, at : {location}")
+    rows_to_add = (216 - weather_date.shape[0])
+    arr_to_add = np.zeros((rows_to_add, weather_date.shape[1]), dtype=float)
+    weather_date = np.vstack([weather_date, arr_to_add])
+
     return tf.convert_to_tensor(weather_date, dtype='float32')
 
 
 def location2sentence(fires, location):
     global z
     global c
-    print(f"current location: {location}")
+    #print(f"current location: {location}")
     day_date = datetime.strptime(location['date'], "%Y-%m-%d")
     dates = [(day_date + timedelta(days=i)).strftime("%Y-%m-%d") for i in
              range(-9, 0)]  # sample every day for a week before
@@ -84,8 +88,8 @@ def location2sentence(fires, location):
         tensor_weather_list.append(tensor_weather)
     sentence_bands = tf.stack(tensor_bands_list)
     sentence_weather = tf.stack(tensor_weather_list)
-    print("num find or not")
-    print(c,z)
+    # print("num find", c,"or not", z)
+
     return sentence_bands, sentence_weather
 
 

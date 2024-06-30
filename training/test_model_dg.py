@@ -12,17 +12,32 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, f1_score, confusion_matrix, recall_score, precision_score, \
     mean_squared_error
 import warnings
+from tensorflow.keras.optimizers import Adam
+
+
+from tensorflow.keras.callbacks import ReduceLROnPlateau
+
+from sklearn.utils.class_weight import compute_class_weight
+
+from sklearn.utils import class_weight
+
 
 # 忽略 SettingWithCopyWarning 警告
 warnings.simplefilter(action='ignore', category=pd.errors.SettingWithCopyWarning)
+
+from tensorflow.keras.models import Model
+from tensorflow.keras.layers import Input, TimeDistributed, Flatten, Reshape, Concatenate, Masking, LSTM, Dense, Attention
+from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.callbacks import ReduceLROnPlateau
+import tensorflow as tf
 
 # Define image input shape
 image_height = 190
 image_width = 190
 channels = 13
 time_steps = 9
-hours = 24
-w_features = 14
+hours = 24 * 9
+w_features = 15
 
 # Define image input
 image_input = Input(shape=(time_steps, image_height, image_width, channels))
@@ -43,19 +58,33 @@ reshaped_extra_input = Reshape((time_steps, hours * w_features))(extra_input)
 concatenated_input = Concatenate(axis=-1)([flattened_images, reshaped_extra_input])
 
 # Masking layer
-masked_input = Masking(mask_value=0.0)(concatenated_input)
+masked_input = Masking(mask_value=0)(concatenated_input)
 
-# LSTM layer
-lstm_output = LSTM(units=50, return_sequences=False)(masked_input)
+# Multiple LSTM layers with attention
+lstm_output = LSTM(units=64, return_sequences=True)(masked_input)  # First LSTM layer
+lstm_output = LSTM(units=64, return_sequences=True)(lstm_output)   # Second LSTM layer
 
-# TimeDistributed Dense layer
+# Attention mechanism (self-attention)
+attention = Attention()([lstm_output, lstm_output])
+
+# Apply attention
+attended_output = tf.keras.layers.Concatenate()([lstm_output, attention])
+
+# LSTM layer after attention
+lstm_output = LSTM(units=64, return_sequences=False)(attended_output)
+
+# Dense layer
 output = Dense(units=1, activation='sigmoid')(lstm_output)
 
 # Define and compile the model
 model = Model(inputs=[image_input, extra_input], outputs=output)
-model.compile(loss=tf.keras.losses.BinaryCrossentropy(), optimizer='adam', metrics=['accuracy'])
+
+reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.2, patience=5, min_lr=0.00001)
+optimizer = Adam(learning_rate=0.00001)
 
 model.summary()
+
+model.compile(loss=tf.keras.losses.BinaryCrossentropy(), optimizer=optimizer, metrics=['accuracy'])
 
 
 def make_all_dates(directory_path):
@@ -122,7 +151,6 @@ class FireDataGenerator(Sequence):
         weather_list = tf.convert_to_tensor(weather_list, dtype=tf.float32)
         labels_list = tf.convert_to_tensor(labels_list, dtype=tf.float32)
         labels_list = tf.expand_dims(labels_list, axis=-1)  # 确保标签的维度正确
-
         return [pic_list, weather_list], labels_list
 
 
@@ -134,8 +162,12 @@ def data_preprocess():
     fires['longitude'] = fires['longitude'].astype(str)
     fires['date'] = fires['date'].astype(str)
     fire_pictures = make_all_dates(os.path.abspath(os.getcwd()) + r"\data_mining\sentinel_images")
+    print("length of fires pics")
+    print(len(fire_pictures))
     fires = fires[['latitude', 'longitude', 'date']]
     fires = pd.merge(fire_pictures, fires, on=['latitude', 'longitude', 'date'], how='inner')
+    print("length of fires")
+    print(len(fires))
     fires = fires.drop_duplicates()
     fires['label'] = 1
 
@@ -145,14 +177,17 @@ def data_preprocess():
     no_fires['latitude'] = no_fires['latitude'].astype(str)
     no_fires['longitude'] = no_fires['longitude'].astype(str)
     no_fires['date'] = no_fires['date'].astype(str)
-    no_fire_pictures = make_all_dates(os.path.abspath(os.getcwd()) + r"\data_mining\sentinel_images_no_fire")
+    no_fire_pictures = make_all_dates(os.path.abspath(os.getcwd()) + r"\data_mining\sentinel_images")
+    print("length of no fires pics")
+    print(len(no_fire_pictures))
     no_fires = pd.merge(no_fire_pictures, no_fires, on=['latitude', 'longitude', 'date'], how='inner')
+    print("length of no fires")
+    print(len(no_fires))
     no_fires = no_fires.drop_duplicates()
     no_fires['label'] = 0
 
     data = pd.concat([fires, no_fires], ignore_index=True)
     data = data.sample(frac=1)
-    breakpoint()
     return data
 
 
@@ -160,21 +195,27 @@ def run():
     fires = data_preprocess()
     # 初始化数据生成器
     # Split data into training and validation sets
-    train_df, test_df = train_test_split(fires, test_size=0.3, random_state=13)
+    train_df, test_df = train_test_split(fires, test_size=0.2, random_state=13)
     # Initialize data generators
-    train_generator = FireDataGenerator(train_df, batch_size=32, shuffle=True)
-    test_generator = FireDataGenerator(test_df, batch_size=32, shuffle=False)
+    #fire_generator = FireDataGenerator(fires, batch_size=8, shuffle=True)
+    train_generator = FireDataGenerator(train_df, batch_size=8, shuffle=True)
+    test_generator = FireDataGenerator(test_df, batch_size=8, shuffle=True)
+
+    y_train = train_df['label'].values
+    class_weights = compute_class_weight(class_weight='balanced',classes= np.unique(y_train), y=y_train)
+
+    class_weights_dict = dict(enumerate(class_weights))
 
     ##  model load here
 
-    # path = os.path.abspath(os.getcwd()) + r"\model.h5"
-    # model = tf.keras.models.load_model(path)
+    path = os.path.abspath(os.getcwd()) + r"\model.h5"
+    model = tf.keras.models.load_model(path)
 
     #  model train here
-    model.fit(x=train_generator, epochs=10, verbose=1)  # validation_data=test_generator
-    print("train done.")
-    model.save('model.h5')
-    print("save done.")
+    # model.fit(x=train_generator, epochs=3,validation_data=test_generator, verbose=1,class_weight=class_weights_dict)
+    # print("train done.")
+    # model.save('model.h5')
+    # print("save done.")
 
     all_true_classes = []
     all_predicted_classes = []
@@ -199,8 +240,13 @@ def run():
     all_true_classes = all_true_classes.reshape(all_true_classes.shape[0])
     all_predicted_classes = all_predicted_classes.reshape(all_predicted_classes.shape[0])
 
-    print("all_true_classes shape:", all_true_classes)
-    print("all_predicted_classes shape:", all_predicted_classes)
+    print("all_true_classes  VS  all_predicted_classes")
+    for true_class, predicted_confidence in zip(all_true_classes, all_predicted_classes):
+        predicted_class = 1 if predicted_confidence > 0.5 else 0
+        correct = "Correct" if true_class == predicted_class else "Incorrect"
+        print(f"{true_class} VS {predicted_class} - Confidence: {predicted_confidence:.6f} - {correct}")
+
+
 
     threshold = 0.5
     all_predicted_classes = (all_predicted_classes >= threshold).astype(int)
@@ -228,6 +274,5 @@ def run():
 
 if __name__ == "__main__":
     # breakpoint()
-    data_preprocess()
-    # run()
+    run()
 # fires['date'] = fires['date'].astype(str)
