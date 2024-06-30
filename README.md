@@ -1,126 +1,78 @@
-![img.png](img.png)
-# presentation
-you can find more information in [the presentation](Presentation1.pptx)
-# the team
-* Jessica Lim
-* Yuanzhe Dong
-* Kwabena Opoku
-* Arbel Hadar
-# **Sources**
+# An AI-Supported Wildfire Early Warning System for the Region of Italy
 
-we use the following data sources via their APIs
+![wildfire-header](img.png)
 
-## **1. NASA's Fire Information for Resource Management System**
+Using free and open remote sensing and weather data in combination with publicly available records of wildfires in Europe, we built an AI early warning system to predict potential fires and support local emergency response teams.
 
-this database provides us with active fire data from the Moderate Resolution Imaging Spectroradiometer (MODIS) aboard the Aqua and Terra satellites, and the Visible Infrared Imaging Radiometer Suite (VIIRS) aboard S-NPP, NOAA 20 and NOAA 21 (formally known as JPSS-1 and JPSS-2).
+## Technical Overview
 
-**Documentation:**
-https://firms.modaps.eosdis.nasa.gov/api/country/
+* * *
 
-**API Key**
-request an API key at https://firms.modaps.eosdis.nasa.gov/api/map_key/
+The application currently consists of the following components:
 
-**Host:**
-https://firms.modaps.eosdis.nasa.gov
+- **React Frontend:** A dashboard and map, allowing the user to submit coordinates for prediction and visualising results
+- **Flask API:** Provides endpoints for interaction with the AI Model
+- **Recurrent Neural Network:** A TensorFlow model built and trained on datasets from our sources listed below.
+- **Data Mining and Training:** scripts for data mining, processing, and model training
 
-**Endpoint:**
-/api/country/html/&lt;mapkey&gt;/&lt;source&gt;/&lt;country&gt;/&lt;dayrange&gt;/&lt;date&gt;
+![app-diagram](app_diagram.png)
 
-**Example endpoint:**
-https://firms.modaps.eosdis.nasa.gov/api/country/html/da61586d1810fd9751c0c93033dee077/VIIRS_SNPP_NRT/ITA/10/2023-07-06
+As this prototype was trained with a focus on the region of Italy, the frontend currently performs this validation by cross checking input-coordinates against a geojson [polygon of Italy](https://github.com/georgique/world-geojson). Only coordinates within its borders are sent via the API to the AI model, which in turn returns a wildfire prediction score for the location. This is displayed via a marker on the map.
 
-**Example CSV output:**
+The satellites used for data collection are not geostationary. This means that it is possible that not enough data will be found on occasion, to make a prediction for specific coordinates. To ensure the model's accuracy and reliability, we have implemented an error message to notify users when this situation arises.
 
-```
-country_id,latitude,longitude,bright_ti4,scan,track,acq_date,acq_time,satellite,instrument,confidence,version,bright_ti5,frp,daynight
-ITA,40.50196,17.21493,303.05,0.54,0.42,2024-05-07,107,N,VIIRS,n,2.0NRT,286.83,1.26,N
-ITA,40.51971,17.20793,297.06,0.54,0.42,2024-05-07,107,N,VIIRS,n,2.0NRT,284.91,1.62,N
-ITA,40.62622,18.00068,303.12,0.39,0.44,2024-05-07,107,N,VIIRS,n,2.0NRT,283.89,0.91,N
-ITA,42.57043,12.67622,305.37,0.39,0.36,2024-05-07,107,N,VIIRS,n,2.0NRT,281.76,0.55,N
-ITA,37.38418,15.05077,317.16,0.49,0.4,2024-05-07,109,N,VIIRS,n,2.0NRT,260.85,2.16,N
-ITA,38.7919,15.21219,302.25,0.47,0.4,2024-05-07,109,N,VIIRS,n,2.0NRT,275.7,0.59,N
-ITA,38.79254,15.21121,309.44,0.48,0.4,2024-05-07,109,N,VIIRS,n,2.0NRT,276.27,1.08,N
-ITA,38.79545,15.21359,308.52,0.47,0.4,2024-05-07,109,N,VIIRS,n,2.0NRT,276.26,0.88,N
-ITA,38.79608,15.21265,301.85,0.48,0.4,2024-05-07,109,N,VIIRS,n,2.0NRT,276.35,1.08,N
-```
-| country_id | latitude | longitude | bright_ti4 | scan | track | acq_date | acq_time | satellite | instrument | confidence | version | bright_ti5 | frp  | daynight |
-|------------|----------|-----------|------------|------|-------|----------|----------|-----------|------------|------------|---------|------------|------|----------|
-| ITA        | 40.50196 | 17.21493  | 303.05     | 0.54 | 0.42  | 2024-05-07 | 107      | N         | VIIRS      | n          | 2.0NRT  | 286.83     | 1.26 | N        |
-| ITA        | 40.51971 | 17.20793  | 297.06     | 0.54 | 0.42  | 2024-05-07 | 107      | N         | VIIRS      | n          | 2.0NRT  | 284.91     | 1.62 | N        |
-| ITA        | 40.62622 | 18.00068  | 303.12     | 0.39 | 0.44  | 2024-05-07 | 107      | N         | VIIRS      | n          | 2.0NRT  | 283.89     | 0.91 | N        |
-| ITA        | 42.57043 | 12.67622  | 305.37     | 0.39 | 0.36  | 2024-05-07 | 107      | N         | VIIRS      | n          | 2.0NRT  | 281.76     | 0.55 | N        |
-| ITA        | 37.38418 | 15.05077  | 317.16     | 0.49 | 0.4   | 2024-05-07 | 109      | N         | VIIRS      | n          | 2.0NRT  | 260.85     | 2.16 | N        |
-| ITA        | 38.7919  | 15.21219  | 302.25     | 0.47 | 0.4   | 2024-05-07 | 109      | N         | VIIRS      | n          | 2.0NRT  | 275.7      | 0.59 | N        |
-| ITA        | 38.79254 | 15.21121  | 309.44     | 0.48 | 0.4   | 2024-05-07 | 109      | N         | VIIRS      | n          | 2.0NRT  | 276.27     | 1.08 | N        |
-| ITA        | 38.79545 | 15.21359  | 308.52     | 0.47 | 0.4   | 2024-05-07 | 109      | N         | VIIRS      | n          | 2.0NRT  | 276.26     | 0.88 | N        |
-| ITA        | 38.79608 | 15.21265  | 301.85     | 0.48 | 0.4   | 2024-05-07 | 109      | N         | VIIRS      | n          | 2.0NRT  | 276.35     | 1.08 | N        |
-## **2. Copernicus Data Space Ecosystem (previously Copernicus Open Access Hub)**
-this database provides us with satellite data from the European Space Agency's (ESA) Copernicus program.
+## Data Sources
 
-**Documentation:**
-https://documentation.dataspace.copernicus.eu/Home.html
+* * *
 
-**API Key**
-to use this API follow the steps in this [link](https://documentation.dataspace.copernicus.eu/APIs/SentinelHub/Overview/Authentication.html) to authenticate and get your API keys.
-enter your API keys and ID in the second cell of the notebook.
+All data we use for training and prediction is free and publicly available via the following sources:
 
-client_id = 'your client ID'
+### **1\. Sentinel Hub Process API**
 
-client_secret = 'your client secret'
+This database provides us with full spectrum satellite imagery (Sentinel 2) from the European Space Agency's Copernicus program.
 
-### **2.2 sentinel Hub API**
-this database provides us with raw satellite imagery from the European Space Agency's (ESA) Copernicus program.
+https://docs.sentinel-hub.com/api/latest/api/process/
 
-**API Key**
-to use this API you need to create an account on sentinelHUB and get API keys.
-follow the steps in this [link](https://www.sentinel-hub.com/faq/where-get-instance-id/) to get instance ID.
-you need to enter your instance ID, Client ID, and Client Secret in the forth cell of the notebook.
+To connect to the API from within the application, a `client_id` and `client_secret` are required. To get your credentials, create an account at https://www.sentinel-hub.com/
 
-config.instance_id = 'your instance ID'
+### **2\. Open Meteo Historical Weather API**
 
-config.sh_client_secret = 'your client secret'
+Open source weather API offering hourly historical data with a high number of weather variables. No key required.
 
-config.sh_client_id =  'your client ID>
-
-to get client ID and secret follow the steps in this [link](https://docs.sentinel-hub.com/api/latest/api/overview/authentication/)
-
-### **Firenews API**
-Endpoint: https://api2.effis.emergency.copernicus.eu/firenews/rest/firenews/firenews
-
-Example URL
-https://api2.effis.emergency.copernicus.eu/firenews/rest/firenews/firenews?notify=1&place__icontains=fontana&startdate__gte=2024-05-13T00:00:00.000Z&enddate__lte=2024-05-28T23:59:59.999Z&simpleplace__icontains=IT&ordering=-enddate,-startdate&limit=20&offset=0
-
-### **Weather data**
 https://open-meteo.com/en/docs/historical-weather-api
 
-# Dependencies
-- sentinelhub
-- oauthlib
-- requests_oauthlib
+## Labeled Data
 
-Install them with:
+The next two sources provide us with historical occurences of wildfires, which have been used as training labels in this prototype.
 
-```bash
-pip install requests sentinelhub PIL
-```
+### **1\. NASA's Fire Information for Resource Management System**
 
+Historical active fire data from NASA's Moderate Resolution Imaging Spectroradiometer (MODIS) and the Visible Infrared Imaging Radiometer Suite (VIIRS) onboard various satellites. Only dates and coordinates with a fire confidence of 'high' are used.
 
-# Data Collection, Cleaning and Enhancement
-- Pull of needed data details from the various sources, based on the scope of the project.
-- The data are cleaned and also vital data features of interest are considered.Such as:
-    Location Coordinates
-    Time of Occurrence
-    Confidence/fire radioactive power
-    Humidity
-    Wind Speed
+https://firms.modaps.eosdis.nasa.gov/api/country/
 
-- Focusing on areas which are of shape interest. The coordinates are modified by trimming into 2 decimal place.​
+request an API key at https://firms.modaps.eosdis.nasa.gov/api/map_key/
 
+### **2\. Firenews API**
 
-# Model (Recurrent Neural Network)
-A deep learning framework using tensorflow.
+Historical geolocated database of European fires reported on the internet
 
-# Training / Testing
-# Validation
+https://api2.effis.emergency.copernicus.eu/firenews/rest/firenews/firenew
 
+## Running the App
 
+* * *
+
+**1\. Clone the repository**
+`git clone https://github.com/R-bellH/ki_Geo_project.git`
+
+**2\. Create a config file**
+Create a `config` file in root, which contains the Sentinel Hub API keys. Credentials can be obtained by creating a free account here: https://www.sentinel-hub.com/
+
+The keys should be listed in the following order in the file:
+&lt;clientID&gt; &lt;clientSecret&gt;
+
+**3\. Install Python and Node dependencies:**
+`pip install -r requirements.txt`
+
+from the frontend-dashboard, run `npm install` followed by `npm run start` to start the development server on port 3000
