@@ -28,8 +28,10 @@ def get_data_from_web():
     return location
 
 def get_images(location, folder):
-    client_id = '4d093505-d867-4ae4-90b0-468eb78dd9af'
-    client_secret = 'UHSroMy3xUHqh0SakSXrPvCejglb2eyH'
+    with open('.\config') as f:
+        contents = f.readlines()[0].split(" ")
+        client_id = contents[0]
+        client_secret = contents[1]
     day_date = datetime.strptime(location['date'], "%Y-%m-%d")
     dates = [(day_date + timedelta(days=i)).strftime("%Y-%m-%d") for i in range(-9, 0)]
     success=0
@@ -53,7 +55,6 @@ def resize_image(input_data, target_size):
     return resized_data
 
 def process_images(main_folder, entries, process=False):
-
     if process:
         print("resizing images")
     rows = []
@@ -89,10 +90,9 @@ def gather_weather(no_fire_weather, folder):
         week_old = (day_date - timedelta(days=9)).strftime("%Y-%m-%d")
         time_interval = (week_old, day)
         try_get_weather(openmeteo_session, row, time_interval, folder)
-def main():
+def main(location):
     images_folder="new_data_images"
     weather_folder="new_data_weather"
-    location=get_data_from_web()
     enough_images=get_images(location,images_folder)
     if not enough_images:
         print("not enough images for analysis for the required location, please try again with another location")
@@ -114,3 +114,6 @@ def main():
     prediction = model.predict(location_tensor)
 
     return prediction
+
+if __name__ == '__main__':
+    # main(get_data_from_web())
