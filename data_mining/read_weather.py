@@ -9,6 +9,10 @@ from datetime import datetime
 
 # Setup the Open-Meteo API client with cache and retry on error
 def start_openmeteo_session():
+    """
+    This function sets up the Open-Meteo API client with cache and retry on error.
+    :return: Open-Meteo API client.
+    """
     cache_session = requests_cache.CachedSession('.cache', expire_after=-1)
     retry_session = retry(cache_session, retries=5, backoff_factor=0.2)
     openmeteo = openmeteo_requests.Client(session=retry_session)
@@ -18,6 +22,17 @@ def start_openmeteo_session():
 # Make sure all required weather variables are listed here
 # The order of variables in hourly or daily is important to assign them correctly below
 def get_weather(openmeteo_session, coordinates, time_interval, verbose=False, save=False,folder="weather_data"):
+    """
+    This function gets weather data for a given location and time interval.
+
+    :param openmeteo_session: The Open-Meteo API client.
+    :param coordinates: The coordinates of the location.
+    :param time_interval: The start and end dates of the time interval.
+    :param verbose: Whether to print verbose output. Defaults to False.
+    :param save: Whether to save the weather data. Defaults to False.
+    :param folder: The folder to save the weather data. Defaults to "weather_data".
+    :return: The weather data as a pandas DataFrame.
+    """
     url = "https://archive-api.open-meteo.com/v1/archive"
     params = {
         "latitude": coordinates['latitude'],

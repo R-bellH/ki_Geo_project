@@ -9,7 +9,7 @@ from time import time
 from datetime import date
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-from main import main
+from workflow import run_workflow
 
 app = Flask(__name__)
 
@@ -38,7 +38,7 @@ def get_fire_coordinates(lat, lon):
 
     location = {"latitude": lat, "longitude": lon, "date": today_str}
     print("before prediction")
-    prediction_result = main(location) #main(location) returns a list of lists
+    prediction_result = run_workflow(location) #main(location) returns a list of lists
     if prediction_result is None:
         return None
 

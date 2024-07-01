@@ -15,11 +15,12 @@ from training.data_to_tensor import location2sentence
 
 # test function to simulate retrieving coordinates from the frontend
 def get_data_from_web():
-    #latitude = 36.96
+    """
+    This function simulates retrieving coordinates from the frontend for testing.
+    returns a hardcoded location and date.
+    """
     latitude = 37
-    #longitude = 14.53
     longitude = 14.5
-    #date = "2023-08-22"
     date = "2024-06-30"
 
     location = {"latitude": latitude, "longitude": longitude, "date": date}
@@ -27,6 +28,10 @@ def get_data_from_web():
 
 
 def get_images(location, folder):
+    """
+    This function retrieves satellite images for a given location and a date.
+    The images are saved in the specified folder.
+    """
     with open('../config') as f:
         contents = f.readlines()[0].split(" ")
         client_id = contents[0]
@@ -45,6 +50,9 @@ def get_images(location, folder):
 
 
 def resize_image(input_data, target_size):
+    """
+    This function resizes an image to a target size.
+    """
     height, width, channels = input_data.shape
     resized_data = np.zeros((*target_size, channels), dtype=input_data.dtype)
     scale_height = target_size[0] / height
@@ -58,6 +66,11 @@ def resize_image(input_data, target_size):
 
 
 def process_images(main_folder, entries, process=False):
+    """
+    This function processes images in a given folder.
+    If the process flag is True, it resizes the images to 190x190.
+    It returns a list of rows, where each row is a list of latitude, longitude, and date.
+    """
     if process:
         print("resizing images")
     rows = []
@@ -77,6 +90,9 @@ def process_images(main_folder, entries, process=False):
 
 
 def try_get_weather(openmeteo_session, row, time_interval, folder, verbose=False):
+    """
+    This function get weather data for a given location and time interval.
+    """
     try:
         weather.get_weather(openmeteo_session, row,
                             time_interval, verbose, save=True, folder=folder)
@@ -89,6 +105,10 @@ def try_get_weather(openmeteo_session, row, time_interval, folder, verbose=False
 
 
 def gather_weather(no_fire_weather, folder):
+    """
+    A wrapper function to gather weather data for a given location.
+    initializes an openmeteo session and calls try_get_weather for each row in the dataframe.
+    """
     openmeteo_session = weather.start_openmeteo_session()
     print("gathering weather")
     for index, row in no_fire_weather.iterrows():
@@ -99,7 +119,11 @@ def gather_weather(no_fire_weather, folder):
         try_get_weather(openmeteo_session, row, time_interval, folder)
 
 
-def main(location):
+def run_workflow(location):
+    """
+    This function runs the entire workflow for a given location (including date).
+    It gets images, processes them, gathers weather data, loads a model, and makes a prediction.
+    """
     images_folder = "new_data_images"
     weather_folder = "new_data_weather"
     enough_images = get_images(location, images_folder)
@@ -123,10 +147,50 @@ def main(location):
 
     # predict
     prediction = model.predict(location_tensor)
-    print(prediction)
     return prediction
 
+def run_workflow_from_dataframe(locations):
+    """
+    This function runs the entire workflow for a list of locations.
+    It gets images, processes them, gathers weather data, loads a model, and makes predictions for all locations.
+    """
+    images_folder = "new_data_images"
+    weather_folder = "new_data_weather"
+    for location in locations:
+        enough_images = get_images(location, images_folder)
+        if not enough_images:
+            print("not enough images for analysis for the required location, please try again with another location")
+        location["latitude"] = str(location["latitude"])
+        location["longitude"] = str(location["longitude"])
+
+    entries = os.listdir(images_folder)
+    data = process_images(images_folder, entries, process=True)
+    data = pd.DataFrame(data, columns=["latitude", "longitude", "date"])
+    gather_weather(data, weather_folder)
+
+    # load the model
+    path = os.path.abspath(os.getcwd()) + r"/../model.h5"
+    model = tf.keras.models.load_model(path)
+
+    images_list,weather_list = [], []
+    for location in locations:
+        location_tensor = location2sentence("_", location)
+        images_list.append(location_tensor[0])
+        weather_list.append(location_tensor[1])
+
+    tensor= [images_list, weather_list]
+
+    # predict
+    predictions = model.predict(tensor)
+    return predictions
+
+def run_workflow_from_path(path):
+    """
+    A wrapper function to run the workflow for a given a path to csv file with locations and dates.
+    """
+    locations = pd.read_csv(path)
+    run_workflow_from_dataframe(locations)
 
 if __name__ == '__main__':
-    main(get_data_from_web())
+    run_workflow(get_data_from_web())
 

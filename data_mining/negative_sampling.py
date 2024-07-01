@@ -117,23 +117,25 @@ def gather_weather(no_fire_weather, folder):
         time_interval = (week_old, day)
         try_get_weather(openmeteo_session, row, time_interval, folder)
 
-def main():
+def main(n=500):
     start_date = "2022-02-01"
     end_date = "2024-06-25"
-    num_samples = 500
+    num_samples = n
     main_folder = "sentinel_images_no_fire"
-    client_id = 'sh-4f90983d-bc78-4cb1-9323-b9035a0bf340'
-    client_secret = 'Zvmj4K6tpi9gEHuh81tY05BkCnYiPm5c'
+    with open('..\config') as f:
+        contents = f.readlines()[0].split(" ")
+        client_id = contents[0]
+        client_secret = contents[1]
 
     # polygons = [north, south]
     # df = generate_random_data(num_samples, start_date, end_date, polygons)
     # df.to_csv("no_fire_probably.csv", index=False)
 
-    # df=pd.read_csv("no_fire_probably.csv")
+    df=pd.read_csv("no_fire_probably.csv")
     # collect_images(df, main_folder, client_id, client_secret)
 
     entries = os.listdir(main_folder)
-    rows = process_images(main_folder, entries,process=False)
+    rows = process_images(main_folder, entries,process=True)
 
     no_fire_weather = pd.DataFrame(rows, columns=["latitude", "longitude", "date"])
     gather_weather(no_fire_weather, "no_fire_weather")

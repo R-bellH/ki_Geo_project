@@ -7,108 +7,18 @@ import os
 from data_to_tensor import location2sentence
 from tensorflow.keras.utils import Sequence
 import numpy as np
-import sklearn
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, f1_score, confusion_matrix, recall_score, precision_score, \
     mean_squared_error
-import warnings
 from tensorflow.keras.optimizers import Adam
-
-
 from tensorflow.keras.callbacks import ReduceLROnPlateau
-
 from sklearn.utils.class_weight import compute_class_weight
-
 from sklearn.utils import class_weight
-
-
-# 忽略 SettingWithCopyWarning 警告
-warnings.simplefilter(action='ignore', category=pd.errors.SettingWithCopyWarning)
-
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Input, TimeDistributed, Flatten, Reshape, Concatenate, Masking, LSTM, Dense, Attention
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.callbacks import ReduceLROnPlateau
 import tensorflow as tf
-
-# Define image input shape
-image_height = 190
-image_width = 190
-channels = 13
-time_steps = 9
-hours = 24 * 9
-w_features = 15
-
-# Define image input
-image_input = Input(shape=(time_steps, image_height, image_width, channels))
-
-# Flatten images across height, width, and channels
-flattened_images = TimeDistributed(Flatten())(image_input)
-
-# Define extra input shape
-extra_input_shape = (time_steps, hours, w_features)
-
-# Define extra input
-extra_input = Input(shape=extra_input_shape)
-
-# Reshape extra input to be compatible for concatenation
-reshaped_extra_input = Reshape((time_steps, hours * w_features))(extra_input)
-
-# Concatenate flattened images and reshaped extra input
-concatenated_input = Concatenate(axis=-1)([flattened_images, reshaped_extra_input])
-
-# Masking layer
-masked_input = Masking(mask_value=0)(concatenated_input)
-
-# Multiple LSTM layers with attention
-lstm_output = LSTM(units=64, return_sequences=True)(masked_input)  # First LSTM layer
-lstm_output = LSTM(units=64, return_sequences=True)(lstm_output)   # Second LSTM layer
-
-# Attention mechanism (self-attention)
-attention = Attention()([lstm_output, lstm_output])
-
-# Apply attention
-attended_output = tf.keras.layers.Concatenate()([lstm_output, attention])
-
-# LSTM layer after attention
-lstm_output = LSTM(units=64, return_sequences=False)(attended_output)
-
-# Dense layer
-output = Dense(units=1, activation='sigmoid')(lstm_output)
-
-# Define and compile the model
-model = Model(inputs=[image_input, extra_input], outputs=output)
-
-reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.2, patience=5, min_lr=0.00001)
-optimizer = Adam(learning_rate=0.00001)
-
-model.summary()
-
-model.compile(loss=tf.keras.losses.BinaryCrossentropy(), optimizer=optimizer, metrics=['accuracy'])
-
-
-def make_all_dates(directory_path):
-    import os
-    import pandas as pd
-    # Get a list of all entries (files and subdirectories) in the specified directory
-    entries = os.listdir(directory_path)
-    # Iterate over each entry
-    rows = []
-    for entry in entries:
-        lat, long = entry.split(",")
-        # Create the full path to the entry
-        full_path = os.path.join(directory_path, entry)
-
-        # Check if the entry is a directory
-        if os.path.isdir(full_path):
-
-            # List all files and subfolders within the subfolder
-            dates = os.listdir(full_path)
-            for date in dates:
-                rows.append([lat, long, date.split(".")[0]])
-
-    fire_weather = pd.DataFrame(rows, columns=["latitude", "longitude", "date"]).astype(str)
-    return fire_weather
 
 
 class FireDataGenerator(Sequence):
@@ -153,6 +63,67 @@ class FireDataGenerator(Sequence):
         labels_list = tf.expand_dims(labels_list, axis=-1)  # 确保标签的维度正确
         return [pic_list, weather_list], labels_list
 
+def build_model(image_height=190,image_width=190,channels=13,time_steps=9,w_features=15):
+    hours = 24 * time_steps
+
+    # Define image input
+    image_input = Input(shape=(time_steps, image_height, image_width, channels))
+    # Flatten images across height, width, and channels
+    flattened_images = TimeDistributed(Flatten())(image_input)
+    # Define extra input shape
+    extra_input_shape = (time_steps, hours, w_features)
+    # Define extra input
+    extra_input = Input(shape=extra_input_shape)
+    # Reshape extra input to be compatible for concatenation
+    reshaped_extra_input = Reshape((time_steps, hours * w_features))(extra_input)
+    # Concatenate flattened images and reshaped extra input
+    concatenated_input = Concatenate(axis=-1)([flattened_images, reshaped_extra_input])
+    # Masking layer
+    masked_input = Masking(mask_value=0)(concatenated_input)
+    # Multiple LSTM layers with attention
+    lstm_output = LSTM(units=64, return_sequences=True)(masked_input)  # First LSTM layer
+    lstm_output = LSTM(units=64, return_sequences=True)(lstm_output)  # Second LSTM layer
+    # Attention mechanism (self-attention)
+    attention = Attention()([lstm_output, lstm_output])
+    # Apply attention
+    attended_output = tf.keras.layers.Concatenate()([lstm_output, attention])
+    # LSTM layer after attention
+    lstm_output = LSTM(units=64, return_sequences=False)(attended_output)
+    # Dense layer
+    output = Dense(units=1, activation='sigmoid')(lstm_output)
+    # Define and compile the model
+    model = Model(inputs=[image_input, extra_input], outputs=output)
+    reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.2, patience=5, min_lr=0.00001)
+    optimizer = Adam(learning_rate=0.00001)
+    model.summary()
+    model.compile(loss=tf.keras.losses.BinaryCrossentropy(), optimizer=optimizer, metrics=['accuracy'])
+    return model
+
+model=build_model()
+
+
+def make_all_dates(directory_path):
+    import os
+    import pandas as pd
+    # Get a list of all entries (files and subdirectories) in the specified directory
+    entries = os.listdir(directory_path)
+    # Iterate over each entry
+    rows = []
+    for entry in entries:
+        lat, long = entry.split(",")
+        # Create the full path to the entry
+        full_path = os.path.join(directory_path, entry)
+
+        # Check if the entry is a directory
+        if os.path.isdir(full_path):
+
+            # List all files and subfolders within the subfolder
+            dates = os.listdir(full_path)
+            for date in dates:
+                rows.append([lat, long, date.split(".")[0]])
+
+    fire_weather = pd.DataFrame(rows, columns=["latitude", "longitude", "date"]).astype(str)
+    return fire_weather
 
 def data_preprocess():
     # positive data
@@ -191,13 +162,11 @@ def data_preprocess():
     return data
 
 
-def run():
+def test_model(train=False):
     fires = data_preprocess()
-    # 初始化数据生成器
     # Split data into training and validation sets
     train_df, test_df = train_test_split(fires, test_size=0.2, random_state=13)
     # Initialize data generators
-    #fire_generator = FireDataGenerator(fires, batch_size=8, shuffle=True)
     train_generator = FireDataGenerator(train_df, batch_size=8, shuffle=True)
     test_generator = FireDataGenerator(test_df, batch_size=8, shuffle=True)
 
@@ -206,37 +175,33 @@ def run():
 
     class_weights_dict = dict(enumerate(class_weights))
 
-    ##  model load here
+    if train:
+        # train model
+        model = build_model()
+        model.fit(x=train_generator, epochs=3,validation_data=test_generator, verbose=1,class_weight=class_weights_dict)
+        print("train done.")
+        model.save('model.h5')
+        print("save done.")
+    else:
+        ##  load model
+        path = os.path.abspath(os.getcwd()) + r"\model.h5"
+        model = tf.keras.models.load_model(path)
 
-    path = os.path.abspath(os.getcwd()) + r"\model.h5"
-    model = tf.keras.models.load_model(path)
 
-    #  model train here
-    # model.fit(x=train_generator, epochs=3,validation_data=test_generator, verbose=1,class_weight=class_weights_dict)
-    # print("train done.")
-    # model.save('model.h5')
-    # print("save done.")
 
     all_true_classes = []
     all_predicted_classes = []
 
-    # 假设使用 model.predict 进行预测
     for data_lists, labels_list in test_generator:
         predictions = model.predict(data_lists)
 
-        # 对每个预测结果使用阈值 0.5 进行二元分类
 
-        # 将当前批次的真实类别添加到列表中
         all_true_classes.append(labels_list)
-
-        # 将当前批次的预测类别添加到列表中
         all_predicted_classes.append(predictions)
 
-    # 合并所有批次的真实类别和预测类别
     all_true_classes = np.concatenate(all_true_classes, axis=0)
     all_predicted_classes = np.concatenate(all_predicted_classes, axis=0)
 
-    # 打印最终的形状，确保一致性
     all_true_classes = all_true_classes.reshape(all_true_classes.shape[0])
     all_predicted_classes = all_predicted_classes.reshape(all_predicted_classes.shape[0])
 
@@ -246,8 +211,7 @@ def run():
         correct = "Correct" if true_class == predicted_class else "Incorrect"
         print(f"{true_class} VS {predicted_class} - Confidence: {predicted_confidence:.6f} - {correct}")
 
-
-
+    # binary classification with 0.5 threshold
     threshold = 0.5
     all_predicted_classes = (all_predicted_classes >= threshold).astype(int)
 
@@ -271,8 +235,21 @@ def run():
     print("confusion_matrix:")
     print(cm)
 
+def train_model(path_to_save=""):
+    fires = data_preprocess()
+    # Initialize data generators
+    fire_generator = FireDataGenerator(fires, batch_size=8, shuffle=True)
+
+    y_train = fire_generator['label'].values
+    class_weights = compute_class_weight(class_weight='balanced', classes=np.unique(y_train), y=y_train)
+    class_weights_dict = dict(enumerate(class_weights))
+
+    #  model train here
+    model = build_model()
+    model.fit(x=fire_generator, epochs=3, verbose=1)
+    print("train done.")
+    model.save(path_to_save+'/model.h5')
+    print("save done.")
 
 if __name__ == "__main__":
-    # breakpoint()
-    run()
-# fires['date'] = fires['date'].astype(str)
+    test_model()
