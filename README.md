@@ -109,9 +109,6 @@ Download the trained RNN Model via [Dropbox](https://www.dropbox.com/scl/fi/omrx
 
 cd into the 'data_mining' directory and run the main.ipynb notebook to gather the data and train the model
 
-```
-
-
 ## App Dashboard
 
 ![dashboard](frontend-dashboard.png)
