@@ -1,12 +1,10 @@
 # An AI-Supported Wildfire Early Warning System for the Region of Italy
 
-![wildfire-header](/Applications/Joplin.app/Contents/Resources/app.asar/img.png)
+![wildfire-header](header-img.png)
 
-Using free and open remote sensing and weather data in combination with publicly available records of wildfires in Europe, we built an AI early warning system to predict potential fires and support local emergency response teams.
+Using free and open remote sensing data in combination with publicly available records of wildfires in Europe, we built an AI early warning system to predict the risk of fire based on satelite imagery and weather data. This project aims to support local emergency response teams and actors by forecasting potential crisis zones.
 
 ## Technical Overview
-
-* * *
 
 The application currently consists of the following components:
 
@@ -15,15 +13,16 @@ The application currently consists of the following components:
 - **Recurrent Neural Network:** A TensorFlow model built and trained on datasets from our sources listed below
 - **Data Mining and Training:** scripts for data mining, processing, and model training
 
-![app-diagram](/Applications/Joplin.app/Contents/Resources/app.asar/app_diagram.png)
+<p align="center">
+  <img src="app-diagram.png" alt="app-diagram">
+</p>
 
-As this prototype was trained with a focus on the region of Italy, the frontend currently performs this validation by checking input-coordinates against a geojson [polygon of Italy](https://github.com/georgique/world-geojson). Only coordinates within its boundaries are sent via the API to the ML model, which in turn returns a wildfire prediction score for the location. This is displayed via a marker on the map.
+This prototype was trained with a focus on the region of Italy, the frontend currently performs this validation by checking input-coordinates against a geojson [polygon of Italian borders](https://github.com/georgique/world-geojson). Only coordinates within its boundaries are sent via the API to the ML model, which in turn returns a wildfire prediction score for the location. This is displayed via a marker on the map.
 
 One caveat to using open source data, as opposed to self-sourced aerial or drone imagery, is that the satellites used to collect the data are not geostationary. As a result, there may be insufficient data to make a prediction for a given set of coordinates. To ensure the accuracy and reliability of the model, we have implemented an error message to inform users when this situation occurs.
 
 ## Data Sources
 
-* * *
 
 All data we use for training and prediction is free and publicly available via the following sources:
 
@@ -39,9 +38,15 @@ Open source weather API offering hourly historical data with a high number of we
 
 Weather features we used for training:
 
-|     |     |
-| --- | --- |
-| \- temperature 2m  <br>\- relative humidity 2m  <br>\- apparent temperature  <br>\- precipitation  <br>\- rain  <br>\- wind speed 10m  <br>\- soil temperature 0 to 7cm | \- soil temperature 7 to 28cm  <br>\- soil temperature 28 to 100cm  <br>\- soil temperature 100 to 255cm  <br>\- soil moisture 0 to 7cm  <br>\- soil moisture 7 to 28cm  <br>\- soil moisture 28 to 100cm  <br>\- soil moisture 100 to 255cm |
+|                            |                            |
+| -------------------------- | -------------------------- |
+| - temperature 2m           | - soil temperature 7 to 28cm   |
+| - relative humidity 2m     | - soil temperature 28 to 100cm |
+| - apparent temperature     | - soil temperature 100 to 255cm |
+| - precipitation            | - soil moisture 0 to 7cm      |
+| - rain                     | - soil moisture 7 to 28cm     |
+| - wind speed 10m           | - soil moisture 28 to 100cm   |
+| - soil temperature 0 to 7cm| - soil moisture 100 to 255cm  |
 
 ## Labeled Data
 
@@ -75,8 +80,6 @@ https://api2.effis.emergency.copernicus.eu/firenews/rest/firenews/firenews?notif
 
 ## Running the App
 
-* * *
-
 **1\. Clone the repository**
 
 ```
@@ -84,10 +87,12 @@ git clone https://github.com/R-bellH/ki_Geo_project.git
 ```
 
 **2\. Enter Sentinel Hub API Keys in config**
-Replace client_id and client_secret in `config` in root with your Sentinel Hub API keys. Credentials can be obtained by creating a free account here: https://www.sentinel-hub.com/
+
+Replace client_id and client_secret in `config` in root with your API keys. Credentials can be obtained by creating a [free Sentinel Hub account](https://www.sentinel-hub.com/).
 
 **3\. Download the model**
-Download the trained RNN Model [here](https://www.dropbox.com/scl/fi/omrx9etvw01932h9yf5kl/wildfire_ews_model.h5?rlkey=o291s0e7wgljv1xi28yw4vfvk&st=5zrs44p7&dl=0) and add it to the project root
+
+Download the trained RNN Model via [Dropbox](https://www.dropbox.com/scl/fi/omrx9etvw01932h9yf5kl/wildfire_ews_model.h5?rlkey=o291s0e7wgljv1xi28yw4vfvk&st=5zrs44p7&dl=0) and add it to the project root
 
 **3\. Install Python and Node dependencies:**
 
