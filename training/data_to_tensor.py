@@ -18,7 +18,7 @@ global c
 global z
 c,z=0,0
 
-def data2tensor(location, date, images_folder="data_mining\sentinel_images", weather_folder="data_mining\weather_data"):
+def data2tensor(location, date, images_folder="data_mining/sentinel_images", weather_folder="data_mining/weather_data"):
     """
     Converts satellite and weather data to tensors.
 
@@ -43,7 +43,7 @@ def data2tensor(location, date, images_folder="data_mining\sentinel_images", wea
     return tensor_bands, tensor_weather
 
 
-def read_sentinel_tiff(location, date, folder="data_mining\sentinel_images"):
+def read_sentinel_tiff(location, date, folder="data_mining/sentinel_images"):
     """
     Reads a Sentinel TIFF image and converts it to a tensor.
 
@@ -51,13 +51,13 @@ def read_sentinel_tiff(location, date, folder="data_mining\sentinel_images"):
     :param date: A string in the format "YY-mm-dd".
     :return: A tensor representation of the Sentinel TIFF image for the given location and date.
     """
-    path2sentinel = fr"\{folder}\{location['latitude']},{location['longitude']}"
+    path2sentinel = fr"/{folder}/{location['latitude']},{location['longitude']}"
     path = os.path.abspath(os.getcwd()) + path2sentinel
-    bands = imread(path + rf"\{date}.tiff")
+    bands = imread(path + rf"/{date}.tiff")
     return tf.convert_to_tensor(bands, dtype='float32')
 
 
-def read_weather_data(location, date, folder="data_mining\weather_data"):
+def read_weather_data(location, date, folder="data_mining/weather_data"):
     """
     Reads weather data and converts it to a tensor.
 
@@ -67,7 +67,7 @@ def read_weather_data(location, date, folder="data_mining\weather_data"):
     """
     day_date = datetime.strptime(date, "%Y-%m-%d")
     dates = [(day_date + timedelta(days=i)).strftime("%Y-%m-%d") for i in range(-9, 0)]
-    path2weather = fr"\{folder}\{location['latitude']},{location['longitude']}.csv"
+    path2weather = fr"/{folder}/{location['latitude']},{location['longitude']}.csv"
     path = os.path.abspath(os.getcwd()) + path2weather
     weather = pd.read_csv(path, index_col=0)
     weather.drop_duplicates(inplace=True)
@@ -85,7 +85,7 @@ def read_weather_data(location, date, folder="data_mining\weather_data"):
     return tf.convert_to_tensor(weather_date, dtype='float32')
 
 
-def location2sentence(fires, location, images_folder="data_mining\sentinel_images",weather_folder="data_mining\weather_data"):
+def location2sentence(fires, location, images_folder="data_mining/sentinel_images",weather_folder="data_mining/weather_data"):
     """
     Converts a location's data to a "sentence" of tensors, where each "word" is a day's data.
 

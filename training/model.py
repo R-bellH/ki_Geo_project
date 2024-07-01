@@ -127,12 +127,12 @@ def make_all_dates(directory_path):
 
 def data_preprocess():
     # positive data
-    fire_path = os.path.abspath(os.getcwd()) + r"\data_mining\fire_labels\fire_labels_final.csv"
+    fire_path = os.path.abspath(os.getcwd()) + r"/data_mining/fire_labels/fire_labels_final.csv"
     fires = pd.read_csv(fire_path)
     fires['latitude'] = fires['latitude'].astype(str)
     fires['longitude'] = fires['longitude'].astype(str)
     fires['date'] = fires['date'].astype(str)
-    fire_pictures = make_all_dates(os.path.abspath(os.getcwd()) + r"\data_mining\sentinel_images")
+    fire_pictures = make_all_dates(os.path.abspath(os.getcwd()) + r"/data_mining/sentinel_images")
     print("length of fires pics")
     print(len(fire_pictures))
     fires = fires[['latitude', 'longitude', 'date']]
@@ -143,12 +143,12 @@ def data_preprocess():
     fires['label'] = 1
 
     # negative data
-    no_fire_path = os.path.abspath(os.getcwd()) + r"\data_mining\no_fire_probably.csv"
+    no_fire_path = os.path.abspath(os.getcwd()) + r"/data_mining/no_fire_probably.csv"
     no_fires = pd.read_csv(no_fire_path)
     no_fires['latitude'] = no_fires['latitude'].astype(str)
     no_fires['longitude'] = no_fires['longitude'].astype(str)
     no_fires['date'] = no_fires['date'].astype(str)
-    no_fire_pictures = make_all_dates(os.path.abspath(os.getcwd()) + r"\data_mining\sentinel_images")
+    no_fire_pictures = make_all_dates(os.path.abspath(os.getcwd()) + r"/data_mining/sentinel_images")
     print("length of no fires pics")
     print(len(no_fire_pictures))
     no_fires = pd.merge(no_fire_pictures, no_fires, on=['latitude', 'longitude', 'date'], how='inner')
@@ -184,7 +184,7 @@ def test_model(train=False):
         print("save done.")
     else:
         ##  load model
-        path = os.path.abspath(os.getcwd()) + r"\model.h5"
+        path = os.path.abspath(os.getcwd()) + r"/model.h5"
         model = tf.keras.models.load_model(path)
 
 

@@ -122,7 +122,7 @@ def main(n=500):
     end_date = "2024-06-25"
     num_samples = n
     main_folder = "sentinel_images_no_fire"
-    with open('..\config') as f:
+    with open('../config') as f:
         contents = f.readlines()[0].split(" ")
         client_id = contents[0]
         client_secret = contents[1]

@@ -246,7 +246,7 @@ if __name__ == '__main__':
     # example of use
     fire_data = pd.read_csv("fire_data.csv")
     fire_data = fire_data[["latitude", "longitude", "date", "daynight"]]
-    with open('.\config') as f:
+    with open('./config') as f:
         contents = f.readlines()[0].split(" ")
         client_id = contents[0]
         client_secret = contents[1]

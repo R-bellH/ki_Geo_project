@@ -29,9 +29,9 @@ def remove_folders_with_few_files():
     A wrapper function to remove folders with fewer than 5 files in the sentinel_images and sentinel_images_no_fire directories.
     :return:
     """
-    root_directory = r"\sentinel_images"
+    root_directory = r"/sentinel_images"
     _remove_folders_with_few_files(root_directory)
-    root_directory = r"\sentinel_images_no_fire"
+    root_directory = r"/sentinel_images_no_fire"
     _remove_folders_with_few_files(root_directory)
     print("Folders with fewer than 5 files removal complete.")
 
