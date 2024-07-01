@@ -54,15 +54,39 @@ def fetch_fire_news(startDate, endDate, verbose=False, save=False):
         fires["location"] = locations
         if save:
             print("saving to csv")
-            fires.to_csv("./data_mining/fire_news/fire_news.csv",index=False)
+            fires.to_csv("./fire_news/fire_news.csv",index=False)
         return fires
     else:
         if verbose:
             print("Failed to fetch fire news.")
 
+def clean_fire_news():
+    df = pd.read_csv('./fire_news/fire_news.csv')
+
+    # round latitude and longitude to 2 decimal points
+    df['latitude'] = df['latitude'].round(2)
+    df['longitude'] = df['longitude'].round(2)
+
+    df.rename(columns={'acq_date': 'date'}, inplace=True)
+
+    # extract time portion from 'date' and create 'time' column
+    df['time'] = df['date'].str[-9:-4].str.replace(':', '')
+    df['date'] = df['date'].str[:10]
+
+    df.to_csv("./fire_news/fire_news_clean.csv", index=False)
+
+    # print(df.head())
+    return df
+
+def run():
+    startDate = "2022-05-01"
+    endDate = "2025-06-10"
+    fetch_fire_news(startDate, endDate,True,True)
+    fire_news = clean_fire_news()
 
 if __name__=="__main__":
     startDate = "2022-05-01"
     endDate = "2025-06-10"
-    fire_news = fetch_fire_news(startDate, endDate,True,True)
+    fetch_fire_news(startDate, endDate,True,True)
+    fire_news = clean_fire_news()
     print(fire_news)

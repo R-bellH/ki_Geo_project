@@ -1,4 +1,19 @@
 latitude,longitude,date,location,time
+37.45,35.81,2024-06-27,"Kozan, Adana",0702
+38.15,16.17,2024-06-27,Bovalino,0711
+40.11,16.58,2024-06-24,Rocca Imperiale,1457
+42.15,12.38,2024-06-24,Campagnano,1433
+40.82,14.63,2024-06-24,"Monte Saretto, Sarno",1436
+40.33,17.58,2024-06-21,Maruggio,0753
+40.27,8.77,2024-06-21,Macomer,0914
+37.33,13.55,2024-06-21,"Montaperto, Agrigento",0904
+39.56,9.05,2024-06-21,"Barru, Guasila",0706
+40.86,14.19,2024-06-20,"Camaldoli, Napoli",0832
+42.48,12.24,2024-06-20,Bomarzo,0851
+42.06,14.3,2024-06-19,Roccascalegna,1124
+42.11,13.89,2024-06-19,Pratola Peligna,1156
+40.04,8.4,2024-06-19,Putzu Idu,1321
+41.48,13.21,2024-06-18,Roccasecca dei Volsci,0846
 39.95,8.64,2024-06-06,Siamaggiore,0803
 37.24,13.67,2024-06-03,Punta Bianca,0906
 39.93,18.15,2024-06-03,"Ugento, Basso Salento",0916
@@ -84,18 +99,3 @@ latitude,longitude,date,location,time
 38.17,13.13,2023-07-25,Palermo Airport,0819
 38.15,14.96,2023-08-03,Patti,0916
 44.26,9.76,2023-07-24,"Rocchetta di Vara, La Spezia",1047
-36.79,12.0,2023-07-24,Pantelleria,1054
-38.09,13.28,2023-07-24,"Castellaccio, Monreale",1041
-37.58,13.22,2023-07-20,Caltabellotta,1002
-38.19,15.53,2023-07-20,"Camaro/Scoppo, Messina",1107
-40.06,18.01,2023-07-19,Gallipoli,1117
-37.96,12.97,2023-07-18,Monte Bonifato,1044
-39.99,18.39,2023-07-17,Andrano,1030
-37.96,12.96,2023-07-17,"Mount Bonifato, Alcamo",0855
-41.72,15.84,2023-07-14,Monte Sant’Angelo,0943
-38.01,15.7,2023-07-04,"Motta San Giovanni,",0755
-39.55,8.78,2023-06-22,San Gavino,0902
-40.57,9.69,2023-05-11,"Siniscola, Sardinia",0825
-40.28,9.39,2023-05-11,Badde Manna,0855
-43.22,12.47,2023-05-22,Morleschio,1347
-39.45,8.73,2023-04-28,Villacidro,1429
