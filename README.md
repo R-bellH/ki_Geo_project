@@ -4,7 +4,7 @@
 
 Using free and open remote sensing data in combination with publicly available records of wildfires in Europe, we built an AI early warning system to predict the risk of fire based on satelite imagery and weather data. This project aims to support local emergency response teams and actors by forecasting potential crisis zones.
 
-The model's accuracy for this prototype is currently limited by training time and low-quality imagery, which can be improved with higher resolution aerial data and more frequent image captures.  
+The model's accuracy for this prototype is currently limited by training time and low-quality imagery, which can be improved with higher resolution aerial data and more frequent image captures.
 
 ## Technical Overview
 
@@ -103,6 +103,10 @@ pip install -r requirements.txt
 ```
 
 from the frontend-dashboard, run `npm install` followed by `npm run start` to start the development server on port 3000
+
+## App Dashboard
+
+![dashboard](frontend-dashboard.png)
 
 ---
 
