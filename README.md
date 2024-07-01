@@ -120,8 +120,9 @@ cd into the 'data_mining' directory and run the main.ipynb notebook to gather th
 - Accuracy Score: 0.76
 - Recall Score: 0.59
 - Precision Score: 0.65
-- F1 Score: 0.62
-- Confusion_matrix:
+- F1 Score: 0.62 
+
+Confusion_matrix:
 
 | 37 | 7  |
 |----|----|
