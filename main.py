@@ -13,12 +13,8 @@ from openmeteo_requests.Client import OpenMeteoRequestsError
 import data_mining.read_weather as weather
 from training.data_to_tensor import location2sentence
 
-
+# test function to simulate retrieving coordinates from the frontend
 def get_data_from_web():
-    # get coordinates and date
-    # TODO: write code to take the info from the website and get it into these paramters
-
-    # right now its just an example
     #latitude = 36.96
     latitude = 37
     #longitude = 14.53
@@ -132,6 +128,5 @@ def main(location):
 
 
 if __name__ == '__main__':
-    print("start")
     main(get_data_from_web())
-    print("finished")
+
