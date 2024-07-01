@@ -127,12 +127,12 @@ def main(n=500):
         client_id = contents[0]
         client_secret = contents[1]
 
-    # polygons = [north, south]
-    # df = generate_random_data(num_samples, start_date, end_date, polygons)
-    # df.to_csv("no_fire_probably.csv", index=False)
+    polygons = [north, south]
+    df = generate_random_data(num_samples, start_date, end_date, polygons)
+    df.to_csv("no_fire_probably.csv", index=False)
 
     df=pd.read_csv("no_fire_probably.csv")
-    # collect_images(df, main_folder, client_id, client_secret)
+    collect_images(df, main_folder, client_id, client_secret)
 
     entries = os.listdir(main_folder)
     rows = process_images(main_folder, entries,process=True)

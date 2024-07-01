@@ -32,7 +32,7 @@ def get_images(location, folder):
     This function retrieves satellite images for a given location and a date.
     The images are saved in the specified folder.
     """
-    with open('../config') as f:
+    with open('./config') as f:
         contents = f.readlines()[0].split(" ")
         client_id = contents[0]
         client_secret = contents[1]
@@ -139,7 +139,7 @@ def run_workflow(location):
     gather_weather(data, weather_folder)
 
     # load the model
-    path = os.path.abspath(os.getcwd()) + r"/../model.h5"
+    path = os.path.abspath(os.getcwd()) + r"/./model.h5"
     model = tf.keras.models.load_model(path)
 
     location_tensor = location2sentence("_", location, images_folder, weather_folder)
