@@ -5,3 +5,7 @@ __pycache__/
 .venv
 .vscode
 /config
+/model.h5
+/.cache.sqlite
+.new_data_images/
+.new_data_weather/
