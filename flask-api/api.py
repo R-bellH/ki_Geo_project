@@ -30,8 +30,7 @@ def validate_coordinates(lat, lon):
 
 
 def get_fire_coordinates(lat, lon):
-    new_lat = lat
-    new_lon = lon
+
 
     today = date.today()
     today_str = today.strftime("%Y-%m-%d")
@@ -39,6 +38,8 @@ def get_fire_coordinates(lat, lon):
     location = {"latitude": lat, "longitude": lon, "date": today_str}
     print("before prediction")
     prediction_result = run_workflow(location) #main(location) returns a list of lists
+    print("prediction")
+    print(prediction_result)
     if prediction_result is None:
         return None
 
@@ -50,12 +51,12 @@ def get_fire_coordinates(lat, lon):
 
 
 
-    new_coordinates = {
-        'latitude': new_lat,
-        'longitude': new_lon,
+    response = {
+        'latitude': lat,
+        'longitude': lon,
         'confidence': round(prediction,2)
     }
-    return new_coordinates
+    return response
 
 
 @app.route('/coordinates', methods=['POST'])
@@ -76,6 +77,8 @@ def receive_coordinates():
     new_coordinates = get_fire_coordinates(lat, lon)
     if new_coordinates is None:
         return jsonify({"error": "Not enough data to make a prediction."}), 404
+
+    print("came back to the api")
 
     return jsonify(new_coordinates), 200
 

@@ -15,7 +15,8 @@
     "react-leaflet": "^4.2.1",
     "react-scripts": "5.0.1",
     "turf": "^3.0.14",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "concurrently": "8.2.2"
   },
   "scripts": {
     "start-react": "react-scripts start",
