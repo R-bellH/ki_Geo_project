@@ -142,7 +142,7 @@ def run_workflow(location):
     path = os.path.abspath(os.getcwd()) + r"/../model.h5"
     model = tf.keras.models.load_model(path)
 
-    location_tensor = location2sentence("_", location)
+    location_tensor = location2sentence("_", location, images_folder, weather_folder)
     location_tensor = [tf.expand_dims(tensor, axis=0) for tensor in location_tensor]
 
     # predict

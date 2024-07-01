@@ -18,45 +18,54 @@ global c
 global z
 c,z=0,0
 
-def data2tensor(location, date):
+def data2tensor(location, date, images_folder="\data_mining\sentinel_images", weather_folder="\data_mining\weather_data"):
     """
-    take location (latitude, longitude) and a date "yy-mm-dd" and return a tensor vector representations
-    :returns: bands tensor (hXwXbands) (190X190X13), weather tensor (hourX(temp, 10m_speed,100m_speed) (9*24X15)
+    Converts satellite and weather data to tensors.
+
+    :param location: A dictionary containing latitude, longitude.
+    :param date: A string in the format "yy-mm-dd".
+    :return: A tuple containing two tensors. The first tensor is the bands tensor with shape (hXwXbands) (190X190X13), and the second tensor is the weather tensor with shape (hourX(temp, 10m_speed,100m_speed) (9*24X15).
     """
     global z
     global c
     try:
-        tensor_bands = read_sentinel_tiff(location, date)
+        tensor_bands = read_sentinel_tiff(location, date, images_folder)
         c+=1
     except Exception as e:
-        #print("couldn't find picture")
         tensor_bands = tf.convert_to_tensor(np.zeros((width,hight,bands)), dtype='float32')
         z+=1
     try:
-        tensor_weather = read_weather_data(location, date)
-        # print("weather shape ", tensor_weather.shape)
+        tensor_weather = read_weather_data(location, date, weather_folder)
     except Exception as e:
-        #print("couldn't find weather")
         tensor_weather=tf.convert_to_tensor(np.zeros((hours,w_features)), dtype='float32')
-
-    #print(tensor_bands.shape)
-    #print(tensor_weather.shape)
-    # tensor_bands = tensor_bands.astype('float32')
-    # tensor_weather = tensor_weather.astype('float32')
     return tensor_bands, tensor_weather
 
 
-def read_sentinel_tiff(location, date):
-    path2sentinel = fr"\data_mining\sentinel_images\{location['latitude']},{location['longitude']}"
+def read_sentinel_tiff(location, date, folder="\data_mining\sentinel_images"):
+    """
+    Reads a Sentinel TIFF image and converts it to a tensor.
+
+    :param location: A dictionary containing latitude, longitude.
+    :param date: A string in the format "YY-mm-dd".
+    :return: A tensor representation of the Sentinel TIFF image for the given location and date.
+    """
+    path2sentinel = fr"{folder}\{location['latitude']},{location['longitude']}"
     path = os.path.abspath(os.getcwd()) + path2sentinel
     bands = imread(path + rf"\{date}.tiff")
     return tf.convert_to_tensor(bands, dtype='float32')
 
 
-def read_weather_data(location, date):
+def read_weather_data(location, date, folder="\data_mining\weather_data"):
+    """
+    Reads weather data and converts it to a tensor.
+
+    :param location: A dictionary containing latitude, longitude.
+    :param date: A string in the format "yy-mm-dd".
+    :return: A tensor representation of the weather data for the given location and date.
+    """
     day_date = datetime.strptime(date, "%Y-%m-%d")
     dates = [(day_date + timedelta(days=i)).strftime("%Y-%m-%d") for i in range(-9, 0)]
-    path2weather = fr"\data_mining\weather_data\{location['latitude']},{location['longitude']}.csv"
+    path2weather = fr"{folder}\{location['latitude']},{location['longitude']}.csv"
     path = os.path.abspath(os.getcwd()) + path2weather
     weather = pd.read_csv(path, index_col=0)
     weather.drop_duplicates(inplace=True)
@@ -74,7 +83,14 @@ def read_weather_data(location, date):
     return tf.convert_to_tensor(weather_date, dtype='float32')
 
 
-def location2sentence(fires, location):
+def location2sentence(fires, location, images_folder="\data_mining\sentinel_images",weather_folder="\data_mining\weather_data"):
+    """
+    Converts a location's data to a "sentence" of tensors, where each "word" is a day's data.
+
+    :param fires: A DataFrame containing fire data.
+    :param location: A dictionary containing latitude, longitude, and date.
+    :return: A tuple containing two tensors. The first tensor is a stack of band tensors for a week before the given date, and the second tensor is a stack of weather tensors for the same period.
+    """
     global z
     global c
     #print(f"current location: {location}")
@@ -83,7 +99,7 @@ def location2sentence(fires, location):
              range(-9, 0)]  # sample every day for a week before
     tensor_bands_list, tensor_weather_list, labels=[], [], []
     for date in dates:
-        tensor_bands, tensor_weather = data2tensor(location,date)
+        tensor_bands, tensor_weather = data2tensor(location,date,images_folder,weather_folder)
         tensor_bands_list.append(tensor_bands)
         tensor_weather_list.append(tensor_weather)
     sentence_bands = tf.stack(tensor_bands_list)
