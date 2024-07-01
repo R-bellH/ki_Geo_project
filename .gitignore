@@ -5,3 +5,4 @@ __pycache__/
 .venv
 .vscode
 /config
+/git-filter-repo
