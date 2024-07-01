@@ -92,10 +92,6 @@ git clone https://github.com/R-bellH/ki_Geo_project.git
 
 Replace client_id and client_secret in `config` in root with your API keys. Credentials can be obtained by creating a [free Sentinel Hub account](https://www.sentinel-hub.com/).
 
-**3\. Download the model**
-
-Download the trained RNN Model via [Dropbox](https://www.dropbox.com/scl/fi/omrx9etvw01932h9yf5kl/wildfire_ews_model.h5?rlkey=o291s0e7wgljv1xi28yw4vfvk&st=5zrs44p7&dl=0) and add it to the project root
-
 **3\. Install Python and Node dependencies:**
 
 ```
@@ -103,6 +99,18 @@ pip install -r requirements.txt
 ```
 
 from the frontend-dashboard, run `npm install` followed by `npm run start` to start the development server on port 3000
+
+
+**4\. Download the model**
+
+Download the trained RNN Model via [Dropbox](https://www.dropbox.com/scl/fi/omrx9etvw01932h9yf5kl/wildfire_ews_model.h5?rlkey=o291s0e7wgljv1xi28yw4vfvk&st=5zrs44p7&dl=0) and add it to the project root
+
+**5\. or make it yourself**
+
+cd into the 'data_mining' directory and run the main.ipynb notebook to gather the data and train the model
+
+```
+
 
 ## App Dashboard
 
