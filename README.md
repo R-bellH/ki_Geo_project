@@ -113,6 +113,22 @@ cd into the 'data_mining' directory and run the main.ipynb notebook to gather th
 
 ![dashboard](frontend-dashboard.png)
 
+
+---
+## Model Performance Metrics:
+
+- Accuracy Score: 0.76
+- Recall Score: 0.59
+- Precision Score: 0.65
+- F1 Score: 0.62
+- Confusion_matrix:
+
+| 37 | 7  |
+|----|----|
+| 9  | 13 |
+
+(for full details see the [model details](model_info.txt))
+
 ---
 
 [Arbel Hadar](https://github.com/R-bellH)

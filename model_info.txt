@@ -1,0 +1,61 @@
+Multi layer attention RNN model:
+This model architecture combines image data with additional temporal features using LSTM and attention mechanisms for a specific task, possibly in time-series prediction or sequence modeling.
+
+Inputs:
+Image Input (image_input):
+﻿
+Shape: (time_steps, image_height, image_width, channels)
+Description: Represents a sequence of images over time (time_steps frames) with each frame having dimensions image_height x image_width and channels channels.
+Extra Input (extra_input):
+﻿
+Shape: (time_steps, hours, w_features)
+Description: Additional temporal features structured as a 3D tensor. It includes hours time periods, each with w_features features.
+Model Architecture:
+Flattening and Concatenation:
+﻿
+Flattened Images: Images are flattened across their spatial dimensions and time steps using TimeDistributed(Flatten()).
+Concatenated Input: Flattened images and reshaped extra input are concatenated to combine spatial information from images with temporal features.
+Masking Layer:
+﻿
+Purpose: Masks padded inputs (where value is 0), allowing subsequent layers to ignore padded steps during computation.
+LSTM Layers:
+﻿
+Configuration: Two LSTM layers (units=64) process the concatenated and masked input sequentially (return_sequences=True preserves sequence output for the next layer).
+Attention Mechanism:
+﻿
+Self-Attention: Applied to the LSTM output to focus on relevant parts of the input sequence.
+Operation: Calculates attention scores and produces an attention context vector to weight LSTM outputs.
+Final LSTM Layer:
+﻿
+Configuration: Another LSTM layer (units=64, return_sequences=False for single output) processes the attended output to condense information.
+Output Layer:
+﻿
+Dense Layer: A single-unit dense layer with sigmoid activation predicts a binary outcome (0 or 1).
+Compilation and Training:
+Loss Function: Binary crossentropy for binary classification tasks.
+Optimizer: Adam optimizer with a low learning rate (0.00001) to fine-tune weights.
+Metrics: Accuracy metric is used to evaluate model performance during training.
+
+The advantages of using multi-layer RNNs:
+ ·  Enhancing the modeling ability of long-term dependencies.​
+
+ ·  Increasing the expressive power and flexibility of the network​
+
+ ·  Reducing gradient vanishing​
+
+ ·  Attention layer caculate the attention weight the model should pay  to the current layer of output
+
+Test performance:
+Model Performance Metrics:​
+
+Accuracy Score: 0.76​
+
+Recall Score: 0.59​
+
+Precision Score: 0.65​
+
+F1 Score: 0.62​
+
+Confusion_matrix:
+[[37	7]
+[9	13]]​​
