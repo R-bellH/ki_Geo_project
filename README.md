@@ -90,7 +90,7 @@ git clone https://github.com/R-bellH/ki_Geo_project.git
 
 **2\. Enter Sentinel Hub API Keys in config**
 
-Replace client_id and client_secret in `config` in root with your API keys. Credentials can be obtained by creating a [free Sentinel Hub account](https://www.sentinel-hub.com/).
+Replace client_id and client_secret in [config](config) with your API keys. Credentials can be obtained by creating a [free Sentinel Hub account](https://www.sentinel-hub.com/).
 
 **3\. Install Python and Node dependencies:**
 
@@ -111,7 +111,7 @@ cd into the 'data_mining' directory and run the main.ipynb notebook to gather th
 
 **6\. use the model**
 
-either run `npm run start` from the frontend-dashboard to start the development server on port 3000 or run workflow.py and give csv with formated coordinates and dates
+either run `npm run start` from the frontend-dashboard to start the development server on port 3000 or run workflow.py and input path to csv with formated coordinates and dates
 
 ## App Dashboard
 
