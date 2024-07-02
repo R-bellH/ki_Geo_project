@@ -98,7 +98,7 @@ Replace client_id and client_secret in `config` in root with your API keys. Cred
 pip install -r requirements.txt
 ```
 
-from the frontend-dashboard, run `npm install` followed by `npm run start` to start the development server on port 3000
+from the frontend-dashboard, run `npm install`
 
 
 **4\. Download the model**
@@ -108,6 +108,10 @@ Download the trained RNN Model via [Dropbox](https://www.dropbox.com/scl/fi/omrx
 **5\. or make it yourself**
 
 cd into the 'data_mining' directory and run the main.ipynb notebook to gather the data and train the model
+
+**6\. use the model**
+
+either run `npm run start` from the frontend-dashboard to start the development server on port 3000 or run workflow.py and give csv with formated coordinates and dates
 
 ## App Dashboard
 
